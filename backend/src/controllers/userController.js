@@ -17,8 +17,18 @@ const loginUser = async (req, res) => {
     if (userLogin === 401) return res.status(statusCode.UNAUTHORIZED).json({ message: 'Invalid login!' })
     return res.status(statusCode.OK).json(userLogin)
   } catch (error) {
-    return error;
+    return res.status(statusCode.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
 };
 
-module.exports = { getUsers, loginUser }
+const registerUser = async (req, res) => {
+  try {
+    const user = await UserService.registerUser(req.body);
+    if (user === 401) return res.status(statusCode.UNAUTHORIZED).json({ message: 'Email already exist' })
+    return res.status(statusCode.CREATED).json(user)
+  } catch (error) {
+    return res.status(statusCode.INTERNAL_SERVER_ERROR).json({ message: error.message });
+  }
+};
+
+module.exports = { getUsers, loginUser, registerUser }

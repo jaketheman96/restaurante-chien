@@ -1,6 +1,6 @@
 const { Users } = require('../models');
 const { statusCode } = require('../utils/statusCode');
-const { comparePassword } = require('../utils/hashPassword');
+const { comparePassword, hashPassword } = require('../utils/hashPassword');
 const { generateToken } = require('../utils/tokenHelper');
 
 const getUsers = async () => {
@@ -15,7 +15,7 @@ const loginUser = async ({ email, password }) => {
   if (!user) return statusCode.NOT_FOUND;
   const comparingPassword = await comparePassword(password, user.password)
   if (!comparingPassword) return statusCode.UNAUTHORIZED;
-  const token = await generateToken({ user });
+  const token = generateToken({ user });
   return {
     id: user.id,
     name: user.name,
@@ -24,4 +24,19 @@ const loginUser = async ({ email, password }) => {
   };
 }
 
-module.exports = { getUsers, loginUser }
+const registerUser = async ({ name, email, password, role }) => {
+  const checkUser = await Users.findOne({ where: { email } })
+  if (checkUser) return statusCode.UNAUTHORIZED;
+  const hashedPassword = await hashPassword(password);
+  const user = await Users.create({ name, email, password: hashedPassword, role })
+  const token = generateToken({ user });
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    token,
+  }
+}
+
+module.exports = { getUsers, loginUser, registerUser }
