@@ -15,7 +15,7 @@ const loginUser = async ({ email, password }) => {
   if (!user) return statusCode.NOT_FOUND;
   const comparingPassword = await comparePassword(password, user.password)
   if (!comparingPassword) return statusCode.UNAUTHORIZED;
-  const token = await generateToken(user.id);
+  const token = await generateToken({ user });
   return {
     id: user.id,
     name: user.name,

@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const { statusCode } = require('./statusCode');
 
 const saltRounds = 10;
 
