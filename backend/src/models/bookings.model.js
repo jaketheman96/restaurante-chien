@@ -21,6 +21,5 @@ module.exports = (sequelize, DataTypes) => {
       { foreignKey: 'tableId', as: 'tables' });
   };
 
-
   return Bookings;
 };
