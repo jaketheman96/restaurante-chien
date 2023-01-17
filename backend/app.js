@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());
-app.get('/users', () => console.log('getting'))
+app.get('/users', () => console.log('alo'))
 
 app.use((error, _req, res, _next) => {
   if (error.status) return res.status(error.status).json({ message: error.message });
