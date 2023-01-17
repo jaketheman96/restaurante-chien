@@ -1,10 +1,27 @@
-const { Users } = require('../models')
+const { Users } = require('../models');
+const { statusCode } = require('../utils/statusCode');
+const { comparePassword } = require('../utils/hashPassword');
+const { generateToken } = require('../utils/tokenHelper');
 
 const getUsers = async () => {
   const users = await Users.findAll({
-    attributes: { exclude: ['password'] }
-  });
+    attributes: { exclude: ['password'] },
+  })
   return users;
 }
 
-module.exports = { getUsers }
+const loginUser = async ({ email, password }) => {
+  const user = await Users.findOne({ where: { email } });
+  if (!user) return statusCode.NOT_FOUND;
+  const comparingPassword = await comparePassword(password, user.password)
+  if (!comparingPassword) return statusCode.UNAUTHORIZED;
+  const token = await generateToken(user.id);
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    token,
+  };
+}
+
+module.exports = { getUsers, loginUser }

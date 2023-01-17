@@ -1,11 +1,16 @@
 const bcrypt = require('bcrypt');
+const { statusCode } = require('./statusCode');
 
 const saltRounds = 10;
 
 const hashPassword = async (password) => {
   const hashed = await bcrypt.hash(password, saltRounds);
-  console.log(hashed)
   return hashed;
 };
 
-module.exports = { hashPassword };
+const comparePassword = async (userPassword, hashedPassword) => {
+  const comparing = await bcrypt.compare(userPassword, hashedPassword);
+  return comparing;
+}
+
+module.exports = { hashPassword, comparePassword };
