@@ -4,16 +4,16 @@ module.exports = (sequelize, DataTypes) => {
     available: DataTypes.BOOLEAN,
     seats: DataTypes.INTEGER,
   },
-  {
-    timestamps: false,
-    tableName: 'tables',
-    underscored: true,
-  });
+    {
+      timestamps: false,
+      tableName: 'tables',
+      underscored: true,
+    });
 
   Tables.associate = (models) => {
     Tables.hasMany(models.Bookings,
-           { foreignKey: 'tableId', as: 'tables' });
-       };
+      { foreignKey: 'tableId', as: 'tables' });
+  };
 
   return Tables;
 };

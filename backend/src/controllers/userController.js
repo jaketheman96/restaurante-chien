@@ -1,11 +1,12 @@
 const UserService = require('../services/userService');
+const { statusCode } = require('../utils/statusCode');
 
 const getUsers = async (_req, res, _next) => {
   try {
     const users = await UserService.getUsers();
-    return res.status(200).json(users);
+    return res.status(statusCode.OK).json(users);
   } catch (error) {
-    return res.status(500).json({message: error.message});
+    return res.status(statusCode.INTERNAL_SERVER_ERROR).json({message: error.message});
   }
 }
 
