@@ -24,11 +24,11 @@ module.exports = {
         seats: 5,
       },
       {
-        available: true,
+        available: false,
         seats: 2,
       },
       {
-        available: true,
+        available: false,
         seats: 4,
       },
     ], {});
