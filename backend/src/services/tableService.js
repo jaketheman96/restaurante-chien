@@ -14,4 +14,9 @@ const getOnlyAvailableTables = async () => {
   return tables;
 }
 
-module.exports = { getTables, getOnlyAvailableTables };
+const registerTables = async ({ available, seats }) => {
+  await Tables.create({ available, seats });
+  return { message: 'Table registered!' };
+}
+
+module.exports = { getTables, getOnlyAvailableTables, registerTables };

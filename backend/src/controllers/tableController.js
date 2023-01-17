@@ -20,4 +20,13 @@ const getOnlyAvailableTables = async (_req, res) => {
   }
 };
 
-module.exports = { getTables, getOnlyAvailableTables };
+const registerTable = async (req, res) => {
+  try {
+    const { message } = await tablesService.registerTables(req.body);
+    return res.status(statusCode.CREATED).json({ message })
+  } catch (error) {
+    return res.status(statusCode.INTERNAL_SERVER_ERROR).json({ message: error.message })
+  }
+}
+
+module.exports = { getTables, getOnlyAvailableTables, registerTable };
