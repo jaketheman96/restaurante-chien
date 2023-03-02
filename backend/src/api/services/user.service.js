@@ -1,7 +1,7 @@
-const { Users } = require('../models');
-const { statusCode } = require('../utils/statusCode');
-const { comparePassword, hashPassword } = require('../utils/hashPassword');
-const { generateToken } = require('../utils/tokenHelper');
+const { Users } = require('../../database/models');
+const { statusCode } = require('../../utils/statusCode');
+const { comparePassword, hashPassword } = require('../../utils/hashPassword');
+const { generateToken } = require('../../utils/tokenHelper');
 
 const getUsers = async () => {
   const users = await Users.findAll({

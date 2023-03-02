@@ -7,4 +7,4 @@ const statusCode = {
   INTERNAL_SERVER_ERROR: 500,
 }
 
-module.exports = { statusCode };
+export default statusCode;
