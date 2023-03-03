@@ -1,7 +1,6 @@
 import { INTEGER, BOOLEAN, Model } from "sequelize";
 import db from '.'
 import Itable from "../../interfaces/Itables";
-import Bookings from "./bookings.model";
 
 class Tables extends Model<Itable> {
   declare id: number;

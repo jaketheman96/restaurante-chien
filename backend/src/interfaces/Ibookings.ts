@@ -1,5 +1,5 @@
 interface Ibookings {
-  id: number,
+  id?: number,
   userId: number,
   tableId: number,
   reservationTime: Date,
