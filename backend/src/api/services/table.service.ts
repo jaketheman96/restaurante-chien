@@ -10,7 +10,6 @@ class TableService {
 
   async getTableById(id: number): Promise<Itable | number> {
     const table = await Tables.findByPk(id);
-    console.log(table)
     if (!table) return statusCode.NOT_FOUND;
     return table;
   }
@@ -28,9 +27,11 @@ class TableService {
     return;
   }
 
-  async occupyTable(id: number): Promise<string> {
+  async occupyTable(id: number): Promise<void | number> {
+    const tableValidation = await this.getTableById(id);
+    if (tableValidation === 404) return statusCode.NOT_FOUND;
     await Tables.update({ available: false }, { where: { id } })
-    return 'Table occupied!'
+    return;
   }
 }
 

@@ -38,7 +38,8 @@ class TableController {
   async getOnlyAvailableTables(): Promise<Response | void> {
     try {
       const tables = await this.tableService.getOnlyAvailableTables();
-      if (tables === 404) return this._res.status(statusCode.NOT_FOUND).json({ message: 'No tables available' })
+      if (tables === 404) return this._res.status(statusCode.NOT_FOUND)
+        .json({ message: 'No tables available' })
       return this._res.status(statusCode.OK).json(tables)
     } catch (error) {
       this._next(error);
@@ -54,12 +55,14 @@ class TableController {
     }
   }
 
-  async occupyTable() {
+  async occupyTable(): Promise<Response | void> {
     try {
-      await this.tableService.occupyTable(Number(this._req.params.id))
-      return
+      const table = await this.tableService.occupyTable(Number(this._req.params.id));
+      if (table === 404) return this._res.status(statusCode.NOT_FOUND)
+        .json({ message: 'Table not found' });
+      return this._res.status(statusCode.OK).json({ message: 'Table availability changed!' })
     } catch (error) {
-
+      this._next(error);
     }
   }
 }
