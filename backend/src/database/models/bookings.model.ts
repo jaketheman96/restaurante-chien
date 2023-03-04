@@ -19,13 +19,21 @@ Bookings.init({
 }, {
   timestamps: false,
   sequelize: db,
-  modelName: 'Bookings',
+  modelName: 'bookings',
   underscored: true,
 });
 
+Users.hasMany(Bookings,
+  { foreignKey: 'userId', as: 'user' });
+
+Tables.hasMany(Bookings,
+  { foreignKey: 'tableId', as: 'table' });
+
 Bookings.belongsTo(Users,
-  { foreignKey: 'userId', as: 'users' });
+  { foreignKey: 'user', as: 'userBooking' });
+
 Bookings.belongsTo(Tables,
-  { foreignKey: 'tableId', as: 'tables' });
+  { foreignKey: 'table', as: 'tableBooking' });
+
 
 export default Bookings;

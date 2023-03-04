@@ -19,13 +19,15 @@ class TokenValidator {
   async validator(): Promise<void | Response> {
     const { authorization: token } = this._req.headers;
     if (!token) {
-      return this._res.status(statusCode.UNAUTHORIZED).json({ message: 'Token must be provided!' })
+      return this._res.status(statusCode.UNAUTHORIZED)
+        .json({ message: 'Token must be provided!' })
     }
     try {
       const decoded = jwt.verify(token, secret) as jwt.JwtPayload;
       const user = await Users.findOne({ where: { id: decoded } });
       if (!user) {
-        return this._res.status(statusCode.UNAUTHORIZED).json({ message: 'Invalid token!' })
+        return this._res.status(statusCode.UNAUTHORIZED)
+          .json({ message: 'Invalid token!' })
       }
       return this._next()
     } catch (error) {
