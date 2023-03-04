@@ -24,6 +24,17 @@ class TableController {
     }
   };
 
+  async getTableById(): Promise<Response | void> {
+    try {
+      const table = await this.tableService.getTableById(Number(this._req.params.id));
+      if (!table) return this._res.status(statusCode.NOT_FOUND)
+        .json({ message: 'No such table with this id!' });
+      return this._res.status(statusCode.OK).json(table);
+    } catch (error) {
+      this._next(error);
+    }
+  }
+
   async getOnlyAvailableTables(): Promise<Response | void> {
     try {
       const tables = await this.tableService.getOnlyAvailableTables();
@@ -40,6 +51,15 @@ class TableController {
       return this._res.status(statusCode.CREATED).json({ message: 'Table registered!' })
     } catch (error) {
       this._next(error);
+    }
+  }
+
+  async occupyTable() {
+    try {
+      await this.tableService.occupyTable(Number(this._req.params.id))
+      return
+    } catch (error) {
+
     }
   }
 }

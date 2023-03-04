@@ -15,7 +15,7 @@ class BookingController {
     this.bookingService = new BookingService();
   }
 
-  async getAllBookings() {
+  async getAllBookings(): Promise<Response | void> {
     try {
       const response = await this.bookingService.getAllBookings();
       return this._res.status(statusCode.OK).json(response);

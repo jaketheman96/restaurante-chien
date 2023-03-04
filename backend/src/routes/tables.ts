@@ -15,6 +15,11 @@ tableRoute.get('/available',
   (req, res, next) => new TableController(req, res, next).getOnlyAvailableTables()
 )
 
+tableRoute.get('/:id', 
+(req, res, next) => new TokenValidator(req, res, next).validator(),
+(req, res, next) => new TableController(req, res, next).getTableById()
+)
+
 tableRoute.post('/',
   (req, res, next) => new TokenValidator(req, res, next).validator(),
   (req, res, next) => new TableController(req, res, next).registerTable()
