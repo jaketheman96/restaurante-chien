@@ -24,16 +24,16 @@ Bookings.init({
 });
 
 Users.hasMany(Bookings,
-  { foreignKey: 'userId', as: 'user' });
+  { foreignKey: 'userId', as: 'User' });
 
 Tables.hasMany(Bookings,
-  { foreignKey: 'tableId', as: 'table' });
+  { foreignKey: 'tableId', as: 'Table' });
 
 Bookings.belongsTo(Users,
-  { foreignKey: 'user', as: 'userBooking' });
+  { foreignKey: 'userId', as: 'user' });
 
 Bookings.belongsTo(Tables,
-  { foreignKey: 'table', as: 'tableBooking' });
+  { foreignKey: 'tableId', as: 'table' });
 
 
 export default Bookings;

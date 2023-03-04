@@ -3,6 +3,7 @@ import cors from 'cors';
 import ErrorHandler from './middlewares/error.handler';
 import tableRoute from './routes/tables'
 import userRoute from './routes/user';
+import bookingRoute from './routes/bookings';
 
 class App {
   public app: express.Express;
@@ -14,6 +15,7 @@ class App {
     this.app.use(express.json());
     this.app.use('/users', userRoute);
     this.app.use('/tables', tableRoute);
+    this.app.use('/bookings', bookingRoute);
     this.app.use(ErrorHandler.handle);
   }
 
