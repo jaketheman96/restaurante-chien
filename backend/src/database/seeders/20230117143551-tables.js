@@ -4,15 +4,15 @@ module.exports = {
   up: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkInsert('tables', [
       {
-        available: true,
+        available: false,
         seats: 5,
       },
       {
-        available: true,
+        available: false,
         seats: 4,
       },
       {
-        available: true,
+        available: false,
         seats: 3,
       },
       {
@@ -24,11 +24,11 @@ module.exports = {
         seats: 5,
       },
       {
-        available: false,
+        available: true,
         seats: 2,
       },
       {
-        available: false,
+        available: true,
         seats: 4,
       },
     ], {});
