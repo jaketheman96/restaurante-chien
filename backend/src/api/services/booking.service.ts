@@ -4,8 +4,14 @@ import Users from "../../database/models/user.model";
 import Ibookings from "../../interfaces/Ibookings";
 
 class BookingService {
+  private bookingsModel;
+
+  constructor() {
+    this.bookingsModel = Bookings;
+  }
+
   async getAllBookings(): Promise<Ibookings[]> {
-    const bookings = await Bookings.findAll({
+    const bookings = await this.bookingsModel.findAll({
       attributes: { exclude: ['userId', 'tableId'] },
       include: [
         {

@@ -3,19 +3,25 @@ import Tables from "../../database/models/table.model";
 import statusCode from "../../utils/statusCode";
 
 class TableService {
+  private tablesModel;
+
+  constructor() {
+    this.tablesModel = Tables;
+  }
+
   async getTables(): Promise<Itable[]> {
-    const tables = await Tables.findAll()
+    const tables = await this.tablesModel.findAll()
     return tables;
   }
 
   async getTableById(id: number): Promise<Itable | number> {
-    const table = await Tables.findByPk(id);
+    const table = await this.tablesModel.findByPk(id);
     if (!table) return statusCode.NOT_FOUND;
     return table;
   }
 
   async getOnlyAvailableTables(): Promise<Itable[] | number> {
-    const tables = await Tables.findAll({
+    const tables = await this.tablesModel.findAll({
       where: { available: true },
     });
     if (!tables) return statusCode.NOT_FOUND;
@@ -30,7 +36,7 @@ class TableService {
   async occupyTable(id: number): Promise<void | number> {
     const tableValidation = await this.getTableById(id);
     if (tableValidation === 404) return statusCode.NOT_FOUND;
-    await Tables.update({ available: false }, { where: { id } })
+    await this.tablesModel.update({ available: false }, { where: { id } })
     return;
   }
 }
