@@ -36,7 +36,7 @@ class TableService {
   async occupyTable(id: number): Promise<void | number> {
     const tableValidation = await this.getTableById(id);
     if (tableValidation === 404) return statusCode.NOT_FOUND;
-    await this.tablesModel.update({ available: false }, { where: { id } })
+    await this.tablesModel.update({ available: false }, { where: { id } });
     return;
   }
 }

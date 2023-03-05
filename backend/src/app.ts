@@ -4,6 +4,7 @@ import ErrorHandler from './middlewares/error.handler';
 import tableRoute from './routes/tables'
 import userRoute from './routes/user';
 import bookingRoute from './routes/bookings';
+import 'express-async-errors';
 
 class App {
   public app: express.Express;

@@ -5,23 +5,25 @@ import BookingService from "../services/booking.service";
 class BookingController {
   private _req: Request;
   private _res: Response;
-  private _next: NextFunction;
   private bookingService: BookingService;
 
-  constructor(req: Request, res: Response, next: NextFunction) {
+  constructor(req: Request, res: Response, _next: NextFunction) {
     this._req = req;
     this._res = res;
-    this._next = next;
     this.bookingService = new BookingService();
   }
 
   async getAllBookings(): Promise<Response | void> {
-    try {
-      const response = await this.bookingService.getAllBookings();
-      return this._res.status(statusCode.OK).json(response);
-    } catch (error) {
-      this._next(error);
-    }
+    const response = await this.bookingService.getAllBookings();
+    return this._res.status(statusCode.OK).json(response);
+  }
+
+  async postBooking() {
+    const { userId, tableId } = this._req.body
+    const response = await this.bookingService.postBooking(userId, tableId);
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'Table not found' })
+    return response
   }
 }
 

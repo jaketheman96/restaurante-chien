@@ -9,4 +9,9 @@ bookingRoute.get('/',
   (req, res, next) => new BookingController(req, res, next).getAllBookings(),
 );
 
+bookingRoute.post('/',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new BookingController(req, res, next).postBooking(),
+);
+
 export default bookingRoute;
