@@ -41,6 +41,8 @@ class TableController {
     const table = await this.tableService.occupyTable(Number(this._req.params.id));
     if (table === 404) return this._res.status(statusCode.NOT_FOUND)
       .json({ message: 'Table not found' });
+    if (table === 400) return this._res.status(statusCode.BAD_REQUEST)
+      .json({ message: 'Table already occupied' })
     return this._res.status(statusCode.OK).json({ message: 'Table availability changed!' })
   }
 }

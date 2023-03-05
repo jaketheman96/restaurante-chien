@@ -22,8 +22,10 @@ class BookingController {
     const { userId, tableId } = this._req.body
     const response = await this.bookingService.postBooking(userId, tableId);
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'Table not found' })
-    return response
+      .json({ message: 'Table not found!' })
+    if (response === 400) return this._res.status(statusCode.BAD_REQUEST)
+      .json({ message: 'Table already occupied!' })
+    return this._res.status(statusCode.CREATED).json({ message: 'Booking success!' });
   }
 }
 

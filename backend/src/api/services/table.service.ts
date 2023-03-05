@@ -20,6 +20,12 @@ class TableService {
     return table;
   }
 
+  async checkTableAvailabitily(tableId: number) {
+    const table = await this.getTableById(tableId) as Itable;
+    if (table.available === false) return statusCode.BAD_REQUEST;
+    return table
+  }
+
   async getOnlyAvailableTables(): Promise<Itable[] | number> {
     const tables = await this.tablesModel.findAll({
       where: { available: true },
@@ -35,7 +41,9 @@ class TableService {
 
   async occupyTable(id: number): Promise<void | number> {
     const tableValidation = await this.getTableById(id);
+    const isTableAvailable = await this.checkTableAvailabitily(id)
     if (tableValidation === 404) return statusCode.NOT_FOUND;
+    if (isTableAvailable === 400) return statusCode.BAD_REQUEST;
     await this.tablesModel.update({ available: false }, { where: { id } });
     return;
   }

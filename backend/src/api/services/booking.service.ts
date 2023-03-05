@@ -35,8 +35,9 @@ class BookingService {
 
   async postBooking(userId: number, tableId: number) {
     const newDate = new Date()
-    const isTableAvailable = await this.tableService.occupyTable(tableId);
+    const isTableAvailable = await this.tableService.occupyTable(tableId) as any;
     if (isTableAvailable === 404) return statusCode.NOT_FOUND;
+    if (isTableAvailable === 400) return statusCode.BAD_REQUEST;
     await this.bookingsModel.create({ userId, tableId, reservationTime: newDate });
     return;
   }
