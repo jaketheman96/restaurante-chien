@@ -47,6 +47,14 @@ class UsersController {
     }
     return this._res.status(statusCode.CREATED).json(user)
   }
+
+  async updateUser(): Promise<Response> {
+    const { body, params: { id } } = this._req;
+    const response = await this.usersService.updateUser(Number(id), body);
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'User not found' });
+    return this._res.status(statusCode.OK).json({ message: 'User updated!' })
+  }
 }
 
 export default UsersController

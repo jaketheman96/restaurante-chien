@@ -51,6 +51,13 @@ class UserService {
       role: user.role,
     }
   }
+
+  async updateUser(userId: number, userInfos: Iusers): Promise<void | number> {
+    const userValidation = await this.getUserById(userId);
+    if (userValidation === 404) return statusCode.NOT_FOUND;
+    await this.usersModel.update(userInfos, { where: { id: userId } });
+    return;
+  }
 }
 
 
