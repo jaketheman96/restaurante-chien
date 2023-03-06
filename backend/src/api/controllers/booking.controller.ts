@@ -35,6 +35,14 @@ class BookingController {
       .json({ message: 'Booking not found' });
     return this._res.status(statusCode.OK).json(response);
   }
+
+  async updateBooking(): Promise<Response> {
+    const { params: { id }, body } = this._req;
+    const response = await this.bookingService.updateBooking(Number(id), body);
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'Booking not found' });
+    return this._res.status(statusCode.OK).json({ message: 'Booking changed!' });
+  }
 }
 
 export default BookingController;

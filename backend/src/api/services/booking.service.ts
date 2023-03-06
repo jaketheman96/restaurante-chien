@@ -61,6 +61,13 @@ class BookingService {
     if (!booking) return statusCode.NOT_FOUND;
     return booking;
   }
+
+  async updateBooking(bookingId: number, infos: Ibookings): Promise<number | void> {
+    const bookingValidator = await this.getBookingById(bookingId);
+    if (bookingValidator === 404) return statusCode.NOT_FOUND;
+    await this.bookingsModel.update(infos, { where: { id: bookingId } });
+    return;
+  }
 }
 
 export default BookingService;
