@@ -55,6 +55,14 @@ class UsersController {
       .json({ message: 'User not found' });
     return this._res.status(statusCode.OK).json({ message: 'User updated!' })
   }
+
+  async deleteUser(): Promise<Response> {
+    const { id } = this._req.params;
+    const response = await this.usersService.deleteUser(Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'User not found' });
+    return this._res.status(statusCode.OK).json({ message: 'User deleted!' })
+  }
 }
 
 export default UsersController

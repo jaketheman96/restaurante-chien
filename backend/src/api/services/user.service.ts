@@ -58,6 +58,13 @@ class UserService {
     await this.usersModel.update(userInfos, { where: { id: userId } });
     return;
   }
+
+  async deleteUser(userId: number): Promise<void | number> {
+    const userValidation = await this.getUserById(userId);
+    if (userValidation === 404) return statusCode.NOT_FOUND;
+    await this.usersModel.destroy({ where: { id: userId } });
+    return;
+  }
 }
 
 
