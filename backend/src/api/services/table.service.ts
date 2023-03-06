@@ -14,8 +14,8 @@ class TableService {
     return tables;
   }
 
-  async getTableById(id: number): Promise<Itable | number> {
-    const table = await this.tablesModel.findByPk(id);
+  async getTableById(tableId: number): Promise<Itable | number> {
+    const table = await this.tablesModel.findByPk(tableId);
     if (!table) return statusCode.NOT_FOUND;
     return table;
   }
@@ -33,11 +33,18 @@ class TableService {
     return;
   }
 
-  async occupyTable(id: number): Promise<void | number> {
-    const tableValidation = await this.getTableById(id) as any;
+  async occupyTable(tableId: number): Promise<void | number> {
+    const tableValidation = await this.getTableById(tableId) as any;
     if (tableValidation === 404) return statusCode.NOT_FOUND;
-    if (tableValidation.available === false ) return statusCode.BAD_REQUEST;
-    await this.tablesModel.update({ available: false }, { where: { id } });
+    if (tableValidation.available === false) return statusCode.BAD_REQUEST;
+    await this.tablesModel.update({ available: false }, { where: { id: tableId } });
+    return;
+  }
+
+  async deleteTable(tableId: number): Promise<void | number> {
+    const tableValidation = await this.getTableById(tableId);
+    if (tableValidation === 404) return statusCode.NOT_FOUND;
+    await this.tablesModel.destroy({ where: { id: tableId } });
     return;
   }
 }

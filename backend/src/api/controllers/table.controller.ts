@@ -46,6 +46,14 @@ class TableController {
     return this._res.status(statusCode.OK)
       .json({ message: 'Table availability changed!' })
   }
+
+  async deleteTable(): Promise<Response> {
+    const { id } = this._req.params;
+    const response = await this.tableService.deleteTable(Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'Table not found' });
+    return this._res.status(statusCode.OK).json({ message: 'Table deleted!' })
+  }
 }
 
 

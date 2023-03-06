@@ -25,6 +25,11 @@ tableRoute.get('/:id',
   (req, res, next) => new TableController(req, res, next).getTableById()
 )
 
+tableRoute.delete('/:id',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new TableController(req, res, next).deleteTable()
+)
+
 tableRoute.post('/',
   (req, res, next) => new TokenValidator(req, res, next).validator(),
   (req, res, next) => new TableController(req, res, next).registerTable()
