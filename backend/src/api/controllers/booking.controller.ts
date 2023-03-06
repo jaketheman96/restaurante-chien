@@ -13,12 +13,12 @@ class BookingController {
     this.bookingService = new BookingService();
   }
 
-  async getAllBookings(): Promise<Response | void> {
+  async getAllBookings(): Promise<Response> {
     const response = await this.bookingService.getAllBookings();
     return this._res.status(statusCode.OK).json(response);
   }
 
-  async postBooking() {
+  async postBooking(): Promise<Response> {
     const { userId, tableId } = this._req.body
     const response = await this.bookingService.postBooking(userId, tableId);
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
@@ -26,6 +26,14 @@ class BookingController {
     if (response === 400) return this._res.status(statusCode.BAD_REQUEST)
       .json({ message: 'Table already occupied!' })
     return this._res.status(statusCode.CREATED).json({ message: 'Booking success!' });
+  }
+
+  async getBookingById(): Promise<Response> {
+    const { id } = this._req.params;
+    const response = await this.bookingService.getBookingById(Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'Booking not found' });
+    return this._res.status(statusCode.OK).json(response);
   }
 }
 

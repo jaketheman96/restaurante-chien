@@ -13,12 +13,12 @@ class UsersController {
     this.usersService = new UserService()
   }
 
-  async getUsers(): Promise<Response | void> {
+  async getUsers(): Promise<Response> {
     const users = await this.usersService.getUsers();
     return this._res.status(statusCode.OK).json(users);
   }
 
-  async loginUser(): Promise<Response | void> {
+  async loginUser(): Promise<Response> {
     const userLogin = await this.usersService.loginUser(this._req.body);
     if (userLogin === 404) {
       return this._res.status(statusCode.NOT_FOUND)
@@ -31,7 +31,7 @@ class UsersController {
     return this._res.status(statusCode.OK).json(userLogin)
   };
 
-  async registerUser(): Promise<Response | void> {
+  async registerUser(): Promise<Response> {
     const user = await this.usersService.registerUser(this._req.body);
     if (user === 401) {
       return this._res.status(statusCode.UNAUTHORIZED)

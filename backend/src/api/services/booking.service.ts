@@ -33,13 +33,33 @@ class BookingService {
     return bookings;
   }
 
-  async postBooking(userId: number, tableId: number) {
+  async postBooking(userId: number, tableId: number): Promise<number | void> {
     const newDate = new Date()
-    const isTableAvailable = await this.tableService.occupyTable(tableId) as any;
+    const isTableAvailable = await this.tableService.occupyTable(tableId);
     if (isTableAvailable === 404) return statusCode.NOT_FOUND;
     if (isTableAvailable === 400) return statusCode.BAD_REQUEST;
     await this.bookingsModel.create({ userId, tableId, reservationTime: newDate });
     return;
+  }
+
+  async getBookingById(bookingId: number): Promise<number | Ibookings> {
+    const booking = await this.bookingsModel.findByPk(bookingId, {
+      attributes: { exclude: ['userId', 'tableId'] },
+      include: [
+        {
+          model: Users,
+          as: 'user',
+          attributes: { exclude: ['id', 'password', 'email', 'role'] }
+        },
+        {
+          model: Tables,
+          as: 'table',
+          attributes: { exclude: ['available'] }
+        }
+      ]
+    });
+    if (!booking) return statusCode.NOT_FOUND;
+    return booking;
   }
 }
 
