@@ -1,3 +1,4 @@
+import { Model } from "sequelize/types";
 import Bookings from "../../database/models/bookings.model";
 import Tables from "../../database/models/table.model";
 import Users from "../../database/models/user.model";
@@ -6,7 +7,7 @@ import statusCode from "../../utils/statusCode";
 import TableService from "./table.service";
 
 class BookingService {
-  private bookingsModel;
+  private bookingsModel: typeof Bookings;
   private tableService: TableService
 
   constructor() {
@@ -66,6 +67,13 @@ class BookingService {
     const bookingValidator = await this.getBookingById(bookingId);
     if (bookingValidator === 404) return statusCode.NOT_FOUND;
     await this.bookingsModel.update(infos, { where: { id: bookingId } });
+    return;
+  }
+
+  async deleteBooking(bookingId: number): Promise<number | void> {
+    const bookingValidator = await this.getBookingById(bookingId);
+    if (bookingValidator === 404) return statusCode.NOT_FOUND;
+    await this.bookingsModel.destroy({ where: { id: bookingId } })
     return;
   }
 }

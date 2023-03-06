@@ -24,5 +24,10 @@ bookingRoute.put('/:id',
   (req, res, next) => new BookingController(req, res, next).updateBooking(),
 );
 
+bookingRoute.delete('/:id',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new BookingController(req, res, next).deleteBooking(),
+);
+
 
 export default bookingRoute;

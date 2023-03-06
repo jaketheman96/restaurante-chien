@@ -43,6 +43,14 @@ class BookingController {
       .json({ message: 'Booking not found' });
     return this._res.status(statusCode.OK).json({ message: 'Booking changed!' });
   }
+
+  async deleteBooking(): Promise<Response> {
+    const { id } = this._req.params;
+    const response = await this.bookingService.deleteBooking(Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'Booking not found!' });
+    return this._res.status(statusCode.OK).json({ message: 'Booking deleted!' })
+  }
 }
 
 export default BookingController;

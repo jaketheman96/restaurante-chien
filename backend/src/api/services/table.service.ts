@@ -3,7 +3,7 @@ import Tables from "../../database/models/table.model";
 import statusCode from "../../utils/statusCode";
 
 class TableService {
-  private tablesModel;
+  private tablesModel: typeof Tables;
 
   constructor() {
     this.tablesModel = Tables;

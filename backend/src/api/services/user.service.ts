@@ -6,7 +6,7 @@ import tokenHelper from '../../utils/tokenHelper';
 import Ilogin from '../../interfaces/Ilogin';
 
 class UserService {
-  private usersModel;
+  private usersModel: typeof Users;
 
   constructor() {
     this.usersModel = Users;
