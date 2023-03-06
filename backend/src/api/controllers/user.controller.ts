@@ -18,6 +18,14 @@ class UsersController {
     return this._res.status(statusCode.OK).json(users);
   }
 
+  async getUserById(): Promise<Response> {
+    const { id } = this._req.params;
+    const response = await this.usersService.getUserById(Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'User not found!' });
+    return this._res.status(statusCode.OK).json(response);
+  }
+
   async loginUser(): Promise<Response> {
     const userLogin = await this.usersService.loginUser(this._req.body);
     if (userLogin === 404) {
