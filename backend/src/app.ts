@@ -4,6 +4,7 @@ import ErrorHandler from './middlewares/error.handler';
 import tableRoute from './routes/tables'
 import userRoute from './routes/user';
 import bookingRoute from './routes/bookings';
+import foodRouter from './routes/foods';
 import 'express-async-errors';
 
 class App {
@@ -17,6 +18,7 @@ class App {
     this.app.use('/users', userRoute);
     this.app.use('/tables', tableRoute);
     this.app.use('/bookings', bookingRoute);
+    this.app.use('/foods', foodRouter)
     this.app.use(ErrorHandler.handle);
   }
 

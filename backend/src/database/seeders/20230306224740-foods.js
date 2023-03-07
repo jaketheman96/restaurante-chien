@@ -19,9 +19,9 @@ module.exports = {
       },
       {
         id: 3,
-        name: 'Strogonoff de frango',
+        name: 'Strogonoff de carne',
         type: 'Russo',
-        description: 'Trazemos um molho mais cremoso e combina perfeitamente com o macarrão verde.',
+        description: 'Com uma carne suculenta, não há como resistir ao melhor prato do chef',
         price: 'R$25,00',
       },
     ], {});
