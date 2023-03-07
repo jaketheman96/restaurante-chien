@@ -31,6 +31,13 @@ class FoodService {
     await this.foodModel.update(foodDetails, { where: { id: foodId } });
     return;
   }
+
+  async deleteFood(foodId: number): Promise<void | number> {
+    const foodValidator = await this.getFoodById(Number(foodId));
+    if (foodValidator === 404) return statusCode.NOT_FOUND;
+    await this.foodModel.destroy({ where: { id: foodId } });
+    return;
+  }
 }
 
 export default FoodService;
