@@ -31,6 +31,11 @@ module.exports = {
           key: 'id'
         }
       },
+      orderDate: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        field: 'order_date'
+      },
       orderNotes: {
         allowNull: true,
         type: Sequelize.STRING,

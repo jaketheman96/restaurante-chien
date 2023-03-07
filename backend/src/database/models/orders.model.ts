@@ -1,4 +1,4 @@
-import { INTEGER, Model, STRING } from "sequelize";
+import { INTEGER, Model, STRING, DATE } from "sequelize";
 import db from '.';
 import Iorders from "../../interfaces/Iorders";
 import Foods from "./foods.model";
@@ -9,6 +9,7 @@ class Orders extends Model<Iorders> {
   declare userId: number;
   declare foodId: number;
   declare orderNotes: string;
+  declare orderDate: Date;
 }
 
 Orders.init({
@@ -32,6 +33,11 @@ Orders.init({
     type: STRING,
     allowNull: true,
     field: 'order_notes',
+  },
+  orderDate: {
+    type: DATE,
+    allowNull: false,
+    field: 'order_date'
   },
 }, {
   timestamps: false,
