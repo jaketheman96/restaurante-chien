@@ -33,6 +33,14 @@ class FoodController {
     await this.foodService.createFood(body);
     return this._res.status(statusCode.CREATED).json({ message: 'Food created!' });
   }
+
+  async updateFood(): Promise<Response> {
+    const { body, params: { id } } = this._req
+    const response = await this.foodService.updateFood(body, Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json({ message: 'No such food with this id!' });
+    return this._res.status(statusCode.OK).json({ message: 'Food updated!' });
+  }
 }
 
 export default FoodController;

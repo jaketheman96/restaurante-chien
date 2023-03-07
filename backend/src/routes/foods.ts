@@ -19,4 +19,9 @@ foodRouter.post('/',
   (req, res, next) => new FoodController(req, res, next).createFood()
 )
 
+foodRouter.put('/:id',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new FoodController(req, res, next).updateFood()
+)
+
 export default foodRouter;
