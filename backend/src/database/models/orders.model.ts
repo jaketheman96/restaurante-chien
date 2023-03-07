@@ -8,7 +8,7 @@ class Orders extends Model<Iorders> {
   declare id: number;
   declare userId: number;
   declare foodId: number;
-  declare saleNotes: string;
+  declare orderNotes: string;
 }
 
 Orders.init({
@@ -28,20 +28,17 @@ Orders.init({
     allowNull: false,
     field: 'food_id',
   },
-  saleNotes: {
+  orderNotes: {
     type: STRING,
     allowNull: true,
-    field: 'sale_notes',
+    field: 'order_notes',
   },
 }, {
   timestamps: false,
   sequelize: db,
-  modelName: 'sales',
+  modelName: 'orders',
   underscored: true,
 })
-
-Users.hasMany(Orders, { foreignKey: 'userId', as: 'userSale' });
-Foods.hasMany(Orders, { foreignKey: 'foodId', as: 'foodSale' });
 
 Orders.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
 Orders.belongsTo(Foods, { foreignKey: 'foodId', as: 'food' });

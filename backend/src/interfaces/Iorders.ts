@@ -2,7 +2,7 @@ interface Iorders {
   id?: number,
   userId: number,
   foodId: number,
-  saleNotes?: string
+  orderNotes?: string
 }
 
 export default Iorders

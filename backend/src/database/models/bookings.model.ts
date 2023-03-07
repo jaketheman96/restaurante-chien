@@ -23,12 +23,6 @@ Bookings.init({
   underscored: true,
 });
 
-Users.hasMany(Bookings,
-  { foreignKey: 'userId', as: 'User' });
-
-Tables.hasMany(Bookings,
-  { foreignKey: 'tableId', as: 'Table' });
-
 Bookings.belongsTo(Users,
   { foreignKey: 'userId', as: 'user' });
 
