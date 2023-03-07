@@ -19,6 +19,11 @@ class FoodService {
     if (!food) return statusCode.NOT_FOUND;
     return food;
   }
+
+  async createFood(foodDetails: Ifoods): Promise<void> {
+    await this.foodModel.create(foodDetails);
+    return;
+  }
 }
 
 export default FoodService;

@@ -27,6 +27,12 @@ class FoodController {
       .json({ message: 'Food not found!' });
     return this._res.status(statusCode.OK).json(response);
   }
+
+  async createFood(): Promise<Response> {
+    const { body } = this._req;
+    await this.foodService.createFood(body);
+    return this._res.status(statusCode.CREATED).json({ message: 'Food created!' });
+  }
 }
 
 export default FoodController;
