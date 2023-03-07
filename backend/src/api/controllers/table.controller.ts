@@ -5,12 +5,14 @@ import statusCode from "../../utils/statusCode";
 class TableController {
   private _req: Request;
   private _res: Response;
-  private tableService: TableService
+  private tableService: TableService;
+  private tableNotFound: Object;
 
   constructor(req: Request, res: Response, _next: NextFunction) {
     this._req = req;
     this._res = res;
-    this.tableService = new TableService()
+    this.tableService = new TableService();
+    this.tableNotFound = { message: 'No such table with this id!' };
   }
 
   async getTables(): Promise<Response> {
@@ -21,7 +23,7 @@ class TableController {
   async getTableById(): Promise<Response> {
     const table = await this.tableService.getTableById(Number(this._req.params.id));
     if (table === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'No such table with this id!' });
+      .json(this.tableNotFound);
     return this._res.status(statusCode.OK).json(table);
   }
 
@@ -40,7 +42,7 @@ class TableController {
   async occupyTable(): Promise<Response> {
     const table = await this.tableService.occupyTable(Number(this._req.params.id));
     if (table === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'Table not found' });
+      .json(this.tableNotFound);
     if (table === 400) return this._res.status(statusCode.BAD_REQUEST)
       .json({ message: 'Table already occupied' })
     return this._res.status(statusCode.OK)
@@ -51,7 +53,7 @@ class TableController {
     const { id } = this._req.params;
     const response = await this.tableService.deleteTable(Number(id));
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'Table not found' });
+      .json(this.tableNotFound);
     return this._res.status(statusCode.OK).json({ message: 'Table deleted!' })
   }
 }

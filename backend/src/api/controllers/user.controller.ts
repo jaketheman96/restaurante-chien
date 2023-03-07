@@ -6,11 +6,13 @@ class UsersController {
   private _req: Request;
   private _res: Response;
   private usersService: UserService;
+  private userNotFound: Object
 
   constructor(req: Request, res: Response, _next: NextFunction) {
     this._req = req;
     this._res = res;
-    this.usersService = new UserService()
+    this.usersService = new UserService();
+    this.userNotFound = { message: 'No such user with this id' };
   }
 
   async getUsers(): Promise<Response> {
@@ -22,7 +24,7 @@ class UsersController {
     const { id } = this._req.params;
     const response = await this.usersService.getUserById(Number(id));
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'User not found!' });
+      .json(this.userNotFound);
     return this._res.status(statusCode.OK).json(response);
   }
 
@@ -30,7 +32,7 @@ class UsersController {
     const userLogin = await this.usersService.loginUser(this._req.body);
     if (userLogin === 404) {
       return this._res.status(statusCode.NOT_FOUND)
-        .json({ message: 'User not Found!' });
+        .json(this.userNotFound);
     }
     if (userLogin === 401) {
       return this._res.status(statusCode.UNAUTHORIZED)
@@ -52,7 +54,7 @@ class UsersController {
     const { body, params: { id } } = this._req;
     const response = await this.usersService.updateUser(Number(id), body);
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'User not found' });
+      .json(this.userNotFound);
     return this._res.status(statusCode.OK).json({ message: 'User updated!' })
   }
 
@@ -60,7 +62,7 @@ class UsersController {
     const { id } = this._req.params;
     const response = await this.usersService.deleteUser(Number(id));
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'User not found' });
+      .json(this.userNotFound);
     return this._res.status(statusCode.OK).json({ message: 'User deleted!' })
   }
 }

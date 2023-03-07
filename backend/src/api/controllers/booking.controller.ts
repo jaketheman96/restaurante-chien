@@ -6,11 +6,13 @@ class BookingController {
   private _req: Request;
   private _res: Response;
   private bookingService: BookingService;
+  private bookingNotFound: Object
 
   constructor(req: Request, res: Response, _next: NextFunction) {
     this._req = req;
     this._res = res;
     this.bookingService = new BookingService();
+    this.bookingNotFound = { message: 'No such booking with this id!' }
   }
 
   async getAllBookings(): Promise<Response> {
@@ -32,7 +34,7 @@ class BookingController {
     const { id } = this._req.params;
     const response = await this.bookingService.getBookingById(Number(id));
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'Booking not found' });
+      .json(this.bookingNotFound);
     return this._res.status(statusCode.OK).json(response);
   }
 
@@ -40,7 +42,7 @@ class BookingController {
     const { params: { id }, body } = this._req;
     const response = await this.bookingService.updateBooking(Number(id), body);
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'Booking not found' });
+      .json(this.bookingNotFound);
     return this._res.status(statusCode.OK).json({ message: 'Booking changed!' });
   }
 
@@ -48,7 +50,7 @@ class BookingController {
     const { id } = this._req.params;
     const response = await this.bookingService.deleteBooking(Number(id));
     if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json({ message: 'Booking not found!' });
+      .json(this.bookingNotFound);
     return this._res.status(statusCode.OK).json({ message: 'Booking deleted!' })
   }
 }
