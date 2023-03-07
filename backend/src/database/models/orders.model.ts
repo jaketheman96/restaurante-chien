@@ -1,17 +1,17 @@
 import { INTEGER, Model, STRING } from "sequelize";
 import db from '.';
-import Isales from "../../interfaces/Isales";
+import Iorders from "../../interfaces/Iorders";
 import Foods from "./foods.model";
 import Users from "./user.model";
 
-class Sales extends Model<Isales> {
+class Orders extends Model<Iorders> {
   declare id: number;
   declare userId: number;
   declare foodId: number;
   declare saleNotes: string;
 }
 
-Sales.init({
+Orders.init({
   id: {
     type: INTEGER,
     autoIncrement: true,
@@ -40,10 +40,10 @@ Sales.init({
   underscored: true,
 })
 
-Users.hasMany(Sales, { foreignKey: 'userId', as: 'userSale' });
-Foods.hasMany(Sales, { foreignKey: 'foodId', as: 'foodSale' });
+Users.hasMany(Orders, { foreignKey: 'userId', as: 'userSale' });
+Foods.hasMany(Orders, { foreignKey: 'foodId', as: 'foodSale' });
 
-Sales.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
-Sales.belongsTo(Foods, { foreignKey: 'foodId', as: 'food' });
+Orders.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
+Orders.belongsTo(Foods, { foreignKey: 'foodId', as: 'food' });
 
-export default Sales;
+export default Orders;

@@ -1,8 +1,8 @@
-interface Isales {
+interface Iorders {
   id?: number,
   userId: number,
   foodId: number,
   saleNotes?: string
 }
 
-export default Isales
+export default Iorders
