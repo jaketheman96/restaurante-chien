@@ -35,6 +35,12 @@ class OrderService {
     if (!order) return statusCode.NOT_FOUND
     return order;
   }
+
+  async postOrder(orderInfos: Iorders): Promise<void> {
+    orderInfos.orderDate = new Date();
+    await this.orderModel.create(orderInfos);
+    return;
+  }
 }
 
 export default OrderService;

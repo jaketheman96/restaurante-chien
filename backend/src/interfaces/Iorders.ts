@@ -3,7 +3,7 @@ interface Iorders {
   userId: number,
   foodId: number,
   orderNotes?: string,
-  orderDate: Date,
+  orderDate?: Date,
 }
 
 export default Iorders

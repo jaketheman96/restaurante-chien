@@ -31,6 +31,12 @@ class OrderController {
       .json(this.orderNotFound);
     return this._res.status(statusCode.OK).json(response)
   }
+
+  async postOrder(): Promise<Response> {
+    const { body } = this._req;
+    await this.orderService.postOrder(body);
+    return this._res.status(statusCode.CREATED).json({ message: 'Order created!' })
+  }
 }
 
 export default OrderController
