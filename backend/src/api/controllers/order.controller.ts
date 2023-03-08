@@ -45,6 +45,14 @@ class OrderController {
       .json(this.orderNotFound);
     return this._res.status(statusCode.OK).json({ message: 'Order updated!' });
   }
+
+  async deleteOrder(): Promise<Response> {
+    const { id } = this._req.params
+    const response = await this.orderService.deleteOrder(Number(id));
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json(this.orderNotFound);
+    return this._res.status(statusCode.OK).json({ message: 'Order deleted!' });
+  }
 }
 
 export default OrderController
