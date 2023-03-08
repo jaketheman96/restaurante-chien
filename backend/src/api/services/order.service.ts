@@ -2,6 +2,7 @@ import Foods from "../../database/models/foods.model";
 import Orders from "../../database/models/orders.model";
 import Users from "../../database/models/user.model";
 import Iorders from "../../interfaces/Iorders";
+import statusCode from "../../utils/statusCode";
 
 class OrderService {
   private orderModel: typeof Orders;
@@ -27,6 +28,12 @@ class OrderService {
       ],
     })
     return orders;
+  }
+
+  async getOrdersById(orderId: number): Promise<Iorders | number> {
+    const order = await this.orderModel.findByPk(orderId);
+    if (!order) return statusCode.NOT_FOUND
+    return order;
   }
 }
 
