@@ -41,6 +41,13 @@ class OrderService {
     await this.orderModel.create(orderInfos);
     return;
   }
+
+  async changeOrder(orderId: number, orderInfos: Iorders): Promise<void | number> {
+    const orderValidation = await this.getOrdersById(orderId);
+    if (orderValidation === 404) return statusCode.NOT_FOUND;
+    await this.orderModel.update(orderInfos, { where: { id: orderId } })
+    return;
+  }
 }
 
 export default OrderService;
