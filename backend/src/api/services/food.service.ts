@@ -1,12 +1,15 @@
 import Foods from "../../database/models/foods.model";
 import Ifoods from "../../interfaces/Ifoods";
+import FoodValidator from "../../middlewares/validations/food.validator";
 import statusCode from "../../utils/statusCode";
 
 class FoodService {
   private foodModel: typeof Foods;
+  private foodValidator: FoodValidator;
 
   constructor() {
     this.foodModel = Foods
+    this.foodValidator = new FoodValidator()
   }
 
   async getAllFoods(): Promise<Ifoods[]> {
@@ -20,7 +23,11 @@ class FoodService {
     return food;
   }
 
-  async createFood(foodDetails: Ifoods): Promise<void> {
+  async createFood(foodDetails: Ifoods): Promise<void | string> {
+    const { name, type, description, price } = foodDetails
+    const inputValidation = this.foodValidator
+      .validate({ name, type, description, price });
+    if (typeof inputValidation === 'string') return inputValidation;
     await this.foodModel.create(foodDetails);
     return;
   }

@@ -32,7 +32,9 @@ class FoodController {
 
   async createFood(): Promise<Response> {
     const { body } = this._req;
-    await this.foodService.createFood(body);
+    const response = await this.foodService.createFood(body);
+    if (typeof response === 'string') return this._res.status(statusCode.BAD_REQUEST)
+      .json({ message: response });
     return this._res.status(statusCode.CREATED).json({ message: 'Food created!' });
   }
 
