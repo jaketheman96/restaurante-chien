@@ -1,4 +1,3 @@
-import { Model } from "sequelize/types";
 import Bookings from "../../database/models/bookings.model";
 import Tables from "../../database/models/table.model";
 import Users from "../../database/models/user.model";

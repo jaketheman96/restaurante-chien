@@ -4,7 +4,6 @@ import passwordHelper from '../../utils/hashPassword';
 import Iusers from '../../interfaces/Iusers';
 import tokenHelper from '../../utils/tokenHelper';
 import Ilogin from '../../interfaces/Ilogin';
-import userValidator from '../../middlewares/validations/user.validator';
 import UserValidator from '../../middlewares/validations/user.validator';
 
 class UserService {
@@ -76,8 +75,5 @@ class UserService {
     return;
   }
 }
-
-
-
 
 export default UserService;

@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { Model } from "sequelize/types";
-import Iorders from "../../interfaces/Iorders";
 import statusCode from "../../utils/statusCode";
 import OrderService from "../services/order.service";
 
