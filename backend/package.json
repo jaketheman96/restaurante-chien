@@ -20,6 +20,7 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "16.11.31",
     "@types/sequelize": "4.28.14",
+    "joi-to-typescript": "^4.0.7",
     "mysql2": "2.3.0",
     "nodemon": "^2.0.20",
     "sequelize-cli": "6.2.0",
@@ -32,6 +33,7 @@
     "dotenv": "10.0.0",
     "express": "4.17.1",
     "express-async-errors": "3.1",
+    "joi": "^17.8.3",
     "jsonwebtoken": "^9.0.0",
     "sequelize": "6.11.0"
   }

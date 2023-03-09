@@ -29,25 +29,24 @@ class UsersController {
   }
 
   async loginUser(): Promise<Response> {
-    const userLogin = await this.usersService.loginUser(this._req.body);
-    if (userLogin === 404) {
-      return this._res.status(statusCode.NOT_FOUND)
-        .json(this.userNotFound);
-    }
-    if (userLogin === 401) {
-      return this._res.status(statusCode.UNAUTHORIZED)
-        .json({ message: 'Invalid login!' })
-    }
-    return this._res.status(statusCode.OK).json(userLogin)
+    const response = await this.usersService.loginUser(this._req.body);
+    if (typeof response === 'string') return this._res.status(statusCode.BAD_REQUEST)
+      .json({ message: response });
+    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
+      .json(this.userNotFound);
+    if (response === 401) return this._res.status(statusCode.UNAUTHORIZED)
+      .json({ message: 'Invalid login!' })
+    return this._res.status(statusCode.OK).json(response)
   };
 
   async registerUser(): Promise<Response> {
-    const user = await this.usersService.registerUser(this._req.body);
-    if (user === 401) {
-      return this._res.status(statusCode.UNAUTHORIZED)
-        .json({ message: 'Email already exist' })
-    }
-    return this._res.status(statusCode.CREATED).json(user)
+    const response = await this.usersService
+      .registerUser(this._req.body) as number;
+    if (typeof response === 'string') return this._res.status(statusCode.BAD_REQUEST)
+      .json({ message: response })
+    if (response === 401) return this._res.status(statusCode.UNAUTHORIZED)
+      .json({ message: 'Email already exist' })
+    return this._res.status(statusCode.CREATED).json(response)
   }
 
   async updateUser(): Promise<Response> {

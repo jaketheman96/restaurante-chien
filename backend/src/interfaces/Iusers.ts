@@ -3,7 +3,7 @@ interface Iusers {
   name?: string,
   email: string,
   password: string,
-  role: string,
+  role?: string,
 }
 
 export default Iusers;
