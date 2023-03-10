@@ -1,6 +1,12 @@
+import FoodMenu from "../components/FoodMenu"
+import Navbar from "../components/Navbar"
+
 function Foods() {
   return (
-    <div>This is foods page!</div>
+    <>
+      <Navbar />
+      <FoodMenu />
+    </>
   )
 }
 
