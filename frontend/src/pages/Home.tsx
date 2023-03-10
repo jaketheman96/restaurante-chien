@@ -1,6 +1,6 @@
 // import { useDispatch, useSelector } from 'react-redux';
 import MainHome from '../components/MainHome';
-import Navbar from '../components/Navbar';
+import MainNavbar from '../components/MainNavbar';
 // import { changeName } from '../slicers/user.slicer';
 // import { RootState } from '../store/store';
 
@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <>
-      <Navbar />
+      <MainNavbar />
       <MainHome />
     </>
   )

@@ -1,10 +1,10 @@
 import FoodMenu from "../components/FoodMenu"
-import Navbar from "../components/Navbar"
+import MainNavbar from "../components/MainNavbar"
 
 function Foods() {
   return (
     <>
-      <Navbar />
+      <MainNavbar />
       <FoodMenu />
     </>
   )
