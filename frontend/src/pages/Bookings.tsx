@@ -15,6 +15,7 @@ function Bookings() {
     }
     userValidator()
   }, [navigate, token])
+  
   return (
     <div>This is Bookings page!</div>
   )
