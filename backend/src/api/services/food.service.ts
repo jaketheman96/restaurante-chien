@@ -2,6 +2,7 @@ import Foods from "../../database/models/foods.model";
 import Ifoods from "../../interfaces/Ifoods";
 import FoodValidator from "../../middlewares/validations/food.validator";
 import statusCode from "../../utils/statusCode";
+import { Op } from 'sequelize'
 
 class FoodService {
   private foodModel: typeof Foods;
@@ -14,6 +15,12 @@ class FoodService {
 
   async getAllFoods(): Promise<Ifoods[]> {
     const foods = await this.foodModel.findAll();
+    return foods;
+  }
+
+  async getFoodByType(foodType: string): Promise<Ifoods[] | number> {
+    const foods = await this.foodModel.findAll({ where: { type: foodType } });
+    if (!foods.length) return statusCode.BAD_REQUEST;
     return foods;
   }
 

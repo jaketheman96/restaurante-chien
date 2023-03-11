@@ -22,6 +22,14 @@ class FoodController {
     return this._res.status(statusCode.OK).json(response);
   }
 
+  async getFoodByType(): Promise<Response> {
+    const { type } = this._req.params
+    const response = await this.foodService.getFoodByType(type);
+    if (response === 400) return this._res.status(statusCode.BAD_REQUEST)
+      .json({ message: 'Invalid food type' })
+    return this._res.status(statusCode.OK).json(response);
+  }
+
   async getFoodById(): Promise<Response> {
     const { id } = this._req.params
     const response = await this.foodService.getFoodById(Number(id));
