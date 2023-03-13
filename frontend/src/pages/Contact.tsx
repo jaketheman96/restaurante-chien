@@ -1,6 +1,12 @@
+import ContactInfos from "../components/ContactInfos"
+import MainNavbar from "../components/MainNavbar"
+
 function Contact() {
   return (
-    <div>This is Contact Page!</div>
+    <>
+      <MainNavbar />
+      <ContactInfos />
+    </>
   )
 }
 
