@@ -1,6 +1,9 @@
-interface Ilogged {
-  token: string,
+interface Iusers {
+  id?: number,
+  name: string,
+  email: string,
+  password: string,
   role: string,
 }
 
-export default Ilogged
+export default Iusers;

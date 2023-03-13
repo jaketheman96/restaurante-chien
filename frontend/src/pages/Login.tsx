@@ -1,6 +1,12 @@
+import LoginForm from "../components/LoginForm";
+import MainNavbar from "../components/MainNavbar";
+
 function Login() {
   return (
-    <div>This is login page!</div>
+    <>
+      <MainNavbar />
+      <LoginForm />
+    </>
   )
 }
 

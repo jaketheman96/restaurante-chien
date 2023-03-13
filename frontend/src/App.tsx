@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Menu from './pages/Menu';
 import Orders from './pages/Orders';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/type/foods' element={<FoodsType />} />
         <Route path='/menu/:type' element={<Menu />} />
         <Route path='/orders' element={<Orders />} />

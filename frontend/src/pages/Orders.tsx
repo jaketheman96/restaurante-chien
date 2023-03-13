@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Ilogged from "../interfaces/Iuser";
+import Ilogged from "../interfaces/Ilogged";
 import { RootState } from "../store/store";
 
 function Orders() {

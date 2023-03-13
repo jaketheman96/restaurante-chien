@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Ilogged from "../interfaces/Iuser";
+import Ilogged from "../interfaces/Ilogged";
 
 const initialState: Ilogged = { 
   token: '',
