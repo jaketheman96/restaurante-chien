@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 const url = 'http://localhost:3502';
 
-export function useFetch<T>(route: string, fetchMethod: string, token: string) {
+export function useFetch<T>(route: string) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -11,15 +11,7 @@ export function useFetch<T>(route: string, fetchMethod: string, token: string) {
     const fetching = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${url}${route}`, {
-          method: fetchMethod,
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*'
-          }
-        });
+        const response = await fetch(`${url}${route}`);
         const result = await response.json();
         setData(result);
       } catch (err) {
@@ -29,7 +21,7 @@ export function useFetch<T>(route: string, fetchMethod: string, token: string) {
       }
     }
     fetching()
-  }, [route, fetchMethod, token])
+  }, [route])
 
   return { data, error, isLoading };
 }

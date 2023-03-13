@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Ilogged from "../interfaces/Ilogged";
 
 const initialState: Ilogged = { 
@@ -6,16 +6,17 @@ const initialState: Ilogged = {
   role: '',
 };
 
-export const handleChangeName = createSlice({
-  name: 'name',
+export const userReducer = createSlice({
+  name: 'user',
   initialState,
   reducers: {
-    // changeName: (state, action: PayloadAction<string>) => {
-    //   state.name = action.payload;
-    // }
+    userInfos: (state, action: PayloadAction<Ilogged>) => {
+      state.token = action.payload.token;
+      state.role = action.payload.role;
+    }
   },
 })
 
-// export const { changeName } = handleChangeName.actions;
+export const { userInfos } = userReducer.actions;
 
-export default handleChangeName.reducer;
+export default userReducer.reducer;

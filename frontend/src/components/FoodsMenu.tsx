@@ -4,7 +4,7 @@ import Ifoods from "../interfaces/Ifoods";
 
 function FoodsMenu() {
   const { pathname } = useLocation()
-  const { data, isLoading, error } = useFetch<Ifoods[]>(`/foods${pathname}`, 'get', ''); /* (route, fetchMethod, token) */
+  const { data, isLoading, error } = useFetch<Ifoods[]>(`/foods${pathname}`);
 
   if (error) console.log(error)
 
