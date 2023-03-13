@@ -11,7 +11,7 @@ foodRouter.get('/:id',
   (req, res, next) => new FoodController(req, res, next).getFoodById()
 )
 
-foodRouter.get('/type/:type',
+foodRouter.get('/menu/:type',
   (req, res, next) => new FoodController(req, res, next).getFoodByType()
 )
 
