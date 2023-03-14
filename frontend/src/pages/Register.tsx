@@ -1,6 +1,12 @@
+import MainNavbar from "../components/MainNavbar"
+import RegisterForm from "../components/RegisterForm"
+
 function Register() {
   return (
-    <div>Register</div>
+    <>
+      <MainNavbar />
+      <RegisterForm />
+    </>
   )
 }
 

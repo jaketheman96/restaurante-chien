@@ -1,19 +1,26 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Iusers from "../interfaces/Iuser";
 import { userInfos } from "../slicers/user.slicer";
 import fetchWhenClicked from "../utils/postFetch";
 
-function LoginForm() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch();
+function RegisterForm() {
+  const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-  const [loginError, setLoginError] = useState<string>('');
+  const [userPassword, setUserPassword] = useState<string>('')
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
+  const [showRegisterError, setShowRegisterError] = useState<string>('');
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
+    const nameInputValidation = () => {
+      const MINIMUM_NAME_LENGTH = 3;
+      const isNameValid = userName.length >= MINIMUM_NAME_LENGTH;
+      return isNameValid;
+    }
     const emailInputValidation = () => {
       const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
       const isEmailValid = userEmail.match(emailRegex);
@@ -25,9 +32,10 @@ function LoginForm() {
       return isPasswordValid;
     }
     const buttonControl = () => {
+      const nameValidation = nameInputValidation()
       const emailValidation = emailInputValidation()
       const passwordValidation = passwordInputValidation()
-      if (emailValidation && passwordValidation) {
+      if (nameValidation && emailValidation && passwordValidation) {
         return setIsButtonDisabled(false)
       }
       return setIsButtonDisabled(true)
@@ -35,35 +43,43 @@ function LoginForm() {
     buttonControl()
   })
 
-  const handleSubmitForm = async (event: FormEvent<EventTarget>) => {
-    event.preventDefault();
-    const userPayload: Iusers = {
+  const handleSubmit = async (event: FormEvent<EventTarget>) => {
+    event.preventDefault()
+    const payload: Iusers = {
+      name: userName,
       email: userEmail,
       password: userPassword,
+      role: 'customer'
     }
-    const loginUser = await fetchWhenClicked('POST', '/users/login', userPayload, '');
-    if (loginUser.message) return setLoginError('Login inválido');
-    dispatch(userInfos(loginUser));
+    const response = await fetchWhenClicked('post', '/users/register', payload, '');
+    if (response.message) return setShowRegisterError('Esse email já existe');
+    dispatch(userInfos(response))
     return navigate('/bookings')
-  }
-
-  const handleRegisterButton = (): void => {
-    navigate('/register')
   }
 
   useEffect(() => {
     const TWO_SECONDS = 2000;
-    const hideMessage = setTimeout(() => setLoginError(''), TWO_SECONDS);
+    const hideMessage = setTimeout(() => setShowRegisterError(''), TWO_SECONDS);
     return () => clearTimeout(hideMessage);
-  }, [loginError]);
+  }, [showRegisterError]);
+
 
   return (
     <div>
-      <form>
+      Registrar:
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">
+          Name:
+          <input
+            type="text"
+            name="name"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </label>
         <label htmlFor="email">
           Email:
           <input
-            type="text"
+            type="email"
             name="email"
             onChange={(e) => setUserEmail(e.target.value)}
           />
@@ -78,18 +94,21 @@ function LoginForm() {
         </label>
         <button
           type="submit"
-          onClick={handleSubmitForm}
           disabled={isButtonDisabled}
+          onClick={handleSubmit}
         >
-          Entrar
-        </button>
-        <button type="button" onClick={handleRegisterButton}>
           Registrar
         </button>
+        <button
+          type="button"
+          onClick={() => navigate('/login')}
+        >
+          Voltar
+        </button>
       </form>
-      <div>{loginError}</div>
+      <div>{showRegisterError}</div>
     </div>
   )
 }
 
-export default LoginForm
+export default RegisterForm

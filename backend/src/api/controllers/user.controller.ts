@@ -12,7 +12,7 @@ class UsersController {
     this._req = req;
     this._res = res;
     this.usersService = new UserService();
-    this.userNotFound = { message: 'No such user with this id' };
+    this.userNotFound = { message: 'No such user was found' };
   }
 
   async getUsers(): Promise<Response> {
