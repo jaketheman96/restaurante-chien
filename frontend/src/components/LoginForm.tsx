@@ -43,6 +43,7 @@ function LoginForm() {
     }
     const loginUser = await fetchWhenClicked('POST', '/users/login', userPayload, '');
     if (loginUser.message) return setLoginError('Login inválido');
+    localStorage.setItem('user', JSON.stringify(loginUser));
     dispatch(userInfos(loginUser));
     return navigate('/bookings')
   }

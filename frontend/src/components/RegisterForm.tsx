@@ -51,9 +51,10 @@ function RegisterForm() {
       password: userPassword,
       role: 'customer'
     }
-    const response = await fetchWhenClicked('post', '/users/register', payload, '');
-    if (response.message) return setShowRegisterError('Esse email já existe');
-    dispatch(userInfos(response))
+    const registerUser = await fetchWhenClicked('post', '/users/register', payload, '');
+    if (registerUser.message) return setShowRegisterError('Esse email já existe');
+    localStorage.setItem('user', JSON.stringify(registerUser))
+    dispatch(userInfos(registerUser))
     return navigate('/bookings')
   }
 
