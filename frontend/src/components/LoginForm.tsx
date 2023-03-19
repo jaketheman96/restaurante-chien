@@ -45,7 +45,7 @@ function LoginForm() {
     if (loginUser.message) return setLoginError('Login inválido');
     localStorage.setItem('user', JSON.stringify(loginUser));
     dispatch(userInfos(loginUser));
-    return navigate('/bookings')
+    return navigate('/portal')
   }
 
   const handleRegisterButton = (): void => {

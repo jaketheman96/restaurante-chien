@@ -55,7 +55,7 @@ function RegisterForm() {
     if (registerUser.message) return setShowRegisterError('Esse email já existe');
     localStorage.setItem('user', JSON.stringify(registerUser))
     dispatch(userInfos(registerUser))
-    return navigate('/bookings')
+    return navigate('/portal')
   }
 
   useEffect(() => {

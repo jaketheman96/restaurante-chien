@@ -1,6 +1,7 @@
-interface Ilogged {
-  token: string,
-  role: string,
+import Iusers from "./Iuser";
+
+interface Ilogged extends Iusers {
+  token: string;
 }
 
-export default Ilogged
+export default Ilogged;
