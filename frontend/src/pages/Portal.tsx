@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PortalInfos from "../components/PortalInfos";
 import PortalNavbar from "../components/PortalNavbar";
 
 function Portal() {
@@ -17,6 +18,7 @@ function Portal() {
   return (
     <>
       <PortalNavbar />
+      <PortalInfos />
     </>
   );
 }
