@@ -1,21 +1,7 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Ilogged from "../interfaces/Ilogged";
-import { RootState } from "../store/store";
+import useUserValidator from "../hooks/useUserValidator";
 
 function Orders() {
-  const { token } = useSelector((state: RootState): Ilogged => state.user);
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const userValidator = (): void => {
-      if (!token) return navigate('/login');
-      return;
-    }
-    userValidator()
-  }, [navigate, token])
-
+  useUserValidator()
 
   return (
     <div>This is orders page</div>

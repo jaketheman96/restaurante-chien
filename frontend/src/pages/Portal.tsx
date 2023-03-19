@@ -1,19 +1,9 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import PortalInfos from "../components/PortalInfos";
 import PortalNavbar from "../components/PortalNavbar";
+import useUserValidator from "../hooks/useUserValidator";
 
 function Portal() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const userValidation = () => {
-      const user = localStorage.getItem("user");
-      if (!user) return navigate("/login");
-      return;
-    };
-    userValidation();
-  }, [navigate]);
+  useUserValidator()
 
   return (
     <>

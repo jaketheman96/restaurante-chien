@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoadingSpinner from './components/LoadingSpinner';
+import NewBooking from './components/NewBooking';
+import NewOrder from './components/NewOrder';
 import Iloading from './interfaces/Iloading';
 import About from './pages/About';
 import Bookings from './pages/Bookings';
@@ -23,6 +25,7 @@ function App() {
   return (
     <div className='App'>
       <Routes>
+        {/* User is not logged! */}
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
@@ -30,9 +33,12 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/type/foods' element={<FoodsType />} />
         <Route path='/menu/:type' element={<Menu />} />
+        {/* User is logged! */}
         <Route path='/portal' element={<Portal />} />
         <Route path='/orders' element={<Orders />} />
+        <Route path='/orders/new' element={<NewOrder />} />
         <Route path='/bookings' element={<Bookings />} />
+        <Route path='/bookings/new' element={<NewBooking />} />
       </Routes>
       {isLoading && <LoadingSpinner />}
     </div>

@@ -1,24 +1,11 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Ilogged from "../interfaces/Ilogged";
-import { RootState } from "../store/store";
+import useUserValidator from '../hooks/useUserValidator';
 
 function Bookings() {
-  const { token } = useSelector((state: RootState): Ilogged => state.user);
-  const navigate = useNavigate()
+  useUserValidator();
 
-  useEffect(() => {
-    const userValidator = (): void => {
-      if (!token) return navigate('/login');
-      return;
-    }
-    userValidator()
-  }, [navigate, token])
-  
   return (
-    <div>This is Bookings page!</div>
-  )
+    <div>This is bookings page</div>
+  );
 }
 
-export default Bookings
+export default Bookings;
