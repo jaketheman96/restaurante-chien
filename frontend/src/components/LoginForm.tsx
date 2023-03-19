@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Iusers from "../interfaces/Iuser";
+import { setIsLoading } from "../slicers/loading.slicer";
 import { userInfos } from "../slicers/user.slicer";
 import fetchWhenClicked from "../utils/postFetch";
 
@@ -37,6 +38,7 @@ function LoginForm() {
 
   const handleSubmitForm = async (event: FormEvent<EventTarget>) => {
     event.preventDefault();
+    dispatch(setIsLoading(true))
     const userPayload: Iusers = {
       email: userEmail,
       password: userPassword,
@@ -45,6 +47,7 @@ function LoginForm() {
     if (loginUser.message) return setLoginError('Login inválido');
     localStorage.setItem('user', JSON.stringify(loginUser));
     dispatch(userInfos(loginUser));
+    dispatch(setIsLoading(false))
     return navigate('/portal')
   }
 

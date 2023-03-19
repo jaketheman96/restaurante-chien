@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Iusers from "../interfaces/Iuser";
+import { setIsLoading } from "../slicers/loading.slicer";
 import { userInfos } from "../slicers/user.slicer";
 import fetchWhenClicked from "../utils/postFetch";
 
@@ -45,6 +46,7 @@ function RegisterForm() {
 
   const handleSubmit = async (event: FormEvent<EventTarget>) => {
     event.preventDefault()
+    dispatch(setIsLoading(true))
     const payload: Iusers = {
       name: userName,
       email: userEmail,
@@ -55,6 +57,7 @@ function RegisterForm() {
     if (registerUser.message) return setShowRegisterError('Esse email já existe');
     localStorage.setItem('user', JSON.stringify(registerUser))
     dispatch(userInfos(registerUser))
+    dispatch(setIsLoading(false))
     return navigate('/portal')
   }
 
