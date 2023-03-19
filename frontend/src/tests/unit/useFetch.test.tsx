@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import Menu from "../../pages/Menu";
 import store from "../../store/store";
-import { allFoodsMock } from "../mocks/allUsers";
+import { allFoodsMock } from "../mocks/allFoods";
 
 describe("Testing custom hook useGetFetch", () => {
   let mockUrl;
