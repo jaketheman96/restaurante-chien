@@ -28,4 +28,6 @@ function App() {
   );
 }
 
+export const componentType = typeof App;
+
 export default App;
