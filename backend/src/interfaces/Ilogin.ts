@@ -1,6 +1,10 @@
+import Iusers from "./Iusers";
+
 interface Ilogin {
+  name: string,
+  email: string,
+  role: string,
   token: string,
-  role?: string,
 }
 
 export default Ilogin;
