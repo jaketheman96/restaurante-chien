@@ -1,10 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
+import { useGetFetch } from "../hooks/useGetFetch";
 import Ifoods from "../interfaces/Ifoods";
 
 function FoodsMenu() {
   const { pathname } = useLocation()
-  const { data, isLoading, error } = useFetch<Ifoods[]>(`/foods${pathname}`);
+  const { data, isLoading, error } = useGetFetch<Ifoods[]>(`/foods${pathname}`);
 
   if (error) console.log(error)
 

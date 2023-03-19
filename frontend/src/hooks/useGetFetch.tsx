@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 const url = 'http://localhost:3502';
 
-export function useFetch<T>(route: string) {
+export function useGetFetch<T>(route: string) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
