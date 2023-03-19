@@ -67,7 +67,7 @@ function RegisterForm() {
 
   return (
     <div>
-      Registrar:
+      <p>Registrar:</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Name:

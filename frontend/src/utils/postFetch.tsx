@@ -3,7 +3,7 @@ const fetchWhenClicked = async (
   route: string,
   body: any,
   token: string
-): Promise<Response> => {
+): Promise<any> => {
   const response = await fetch(`http://localhost:3502${route}`, {
     method: fetchMethod,
     body: JSON.stringify(body),

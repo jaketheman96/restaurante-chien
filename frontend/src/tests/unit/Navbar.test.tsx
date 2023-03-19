@@ -5,6 +5,7 @@ import About from "../../pages/About";
 import Contact from "../../pages/Contact";
 import Login from "../../pages/Login";
 import Menu from "../../pages/Menu";
+import Register from "../../pages/Register";
 import store from "../../store/store";
 
 describe("Testing navbar component", () => {
@@ -37,6 +38,13 @@ describe("Testing navbar component", () => {
 
     const menuText = screen.getByText("Menu");
     expect(menuText).toBeInTheDocument();
+
+    const returnButton = screen.getByRole("button", { name: /voltar/i });
+    fireEvent.click(returnButton);
+
+    foodsTypes.forEach((element) => {
+      expect(element).toBeInTheDocument();
+    });
   });
 
   test("it should redirect to login page", () => {
@@ -63,5 +71,22 @@ describe("Testing navbar component", () => {
     fireEvent.click(navbarEls[4]);
     const emailInput = screen.getByText(/email/i);
     expect(emailInput).toBeInTheDocument();
+  });
+
+  test("it should access register page", () => {
+    render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Provider store={store}>
+          <Register />
+        </Provider>
+      </MemoryRouter>
+    );
+    const registerButton = screen.getByRole("button", { name: /registrar/i });
+    expect(registerButton).toBeInTheDocument();
+
+    fireEvent.click(registerButton);
+
+    const registerText = screen.getByText(/registrar:/i);
+    expect(registerText).toBeInTheDocument()
   });
 });
