@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Iorder from '../interfaces/Iorder';
 import { handleCart, handleTotal } from '../slicers/cart.slicer';
@@ -37,8 +37,12 @@ function NewOrderCards(props: Iorder) {
     return total;
   };
 
+  // quantity ainda é inserido como 0 no global state cart e implementar pro local storage depois
+
   const handleIncreaseQuantity = () => {
     setQuantity((prev) => prev + 1);
+    handleTotalPrice('increase');
+    // handleLocalStorage('increase');
     const payload = {
       id,
       name,
@@ -46,9 +50,7 @@ function NewOrderCards(props: Iorder) {
       price,
       quantity,
     };
-    handleTotalPrice('increase');
     dispatch(handleCart(payload));
-    // handleLocalStorage('increase');
   };
 
   const handleDecreaseQuantity = () => {

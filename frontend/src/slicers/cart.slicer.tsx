@@ -8,7 +8,7 @@ const initialState: Icart = {
 };
 
 export const cartReducer = createSlice({
-  name: 'cart',
+  name: 'cartReducer',
   initialState,
   reducers: {
     handleCart: (state, action: PayloadAction<Iorder>) => {
