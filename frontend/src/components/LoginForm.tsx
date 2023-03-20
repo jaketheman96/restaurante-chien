@@ -1,13 +1,13 @@
-import { FormEvent, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Iusers from "../interfaces/Iuser";
-import { setIsLoading } from "../slicers/loading.slicer";
-import { userInfos } from "../slicers/user.slicer";
-import fetchWhenClicked from "../utils/postFetch";
+import { FormEvent, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Iusers from '../interfaces/Iuser';
+import { setIsLoading } from '../slicers/loading.slicer';
+import { userInfos } from '../slicers/user.slicer';
+import fetchWhenClicked from '../utils/postFetch';
 
 function LoginForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
@@ -19,41 +19,41 @@ function LoginForm() {
       const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
       const isEmailValid = userEmail.match(emailRegex);
       return isEmailValid;
-    }
+    };
     const passwordInputValidation = () => {
       const MINIMUM_PASS_LENGTH = 6;
-      const isPasswordValid = userPassword.length >= MINIMUM_PASS_LENGTH
+      const isPasswordValid = userPassword.length >= MINIMUM_PASS_LENGTH;
       return isPasswordValid;
-    }
+    };
     const buttonControl = () => {
-      const emailValidation = emailInputValidation()
-      const passwordValidation = passwordInputValidation()
+      const emailValidation = emailInputValidation();
+      const passwordValidation = passwordInputValidation();
       if (emailValidation && passwordValidation) {
-        return setIsButtonDisabled(false)
+        return setIsButtonDisabled(false);
       }
-      return setIsButtonDisabled(true)
-    }
-    buttonControl()
-  })
+      return setIsButtonDisabled(true);
+    };
+    buttonControl();
+  });
 
   const handleSubmitForm = async (event: FormEvent<EventTarget>) => {
     event.preventDefault();
-    dispatch(setIsLoading(true))
+    dispatch(setIsLoading(true));
     const userPayload: Iusers = {
       email: userEmail,
       password: userPassword,
-    }
+    };
     const loginUser = await fetchWhenClicked('POST', '/users/login', userPayload, '');
     if (loginUser.message) return setLoginError('Login inválido');
     localStorage.setItem('user', JSON.stringify(loginUser));
     dispatch(userInfos(loginUser));
-    dispatch(setIsLoading(false))
-    return navigate('/portal')
-  }
+    dispatch(setIsLoading(false));
+    return navigate('/portal');
+  };
 
   const handleRegisterButton = (): void => {
-    navigate('/register')
-  }
+    navigate('/register');
+  };
 
   useEffect(() => {
     const TWO_SECONDS = 2000;
@@ -64,36 +64,36 @@ function LoginForm() {
   return (
     <div>
       <form>
-        <label htmlFor="email">
+        <label htmlFor='email'>
           Email:
           <input
-            type="text"
-            name="email"
+            type='text'
+            name='email'
             onChange={(e) => setUserEmail(e.target.value)}
           />
         </label>
-        <label htmlFor="password">
+        <label htmlFor='password'>
           Password:
           <input
-            type="password"
-            name="password"
+            type='password'
+            name='password'
             onChange={(e) => setUserPassword(e.target.value)}
           />
         </label>
         <button
-          type="submit"
+          type='submit'
           onClick={handleSubmitForm}
           disabled={isButtonDisabled}
         >
           Entrar
         </button>
-        <button type="button" onClick={handleRegisterButton}>
+        <button type='button' onClick={handleRegisterButton}>
           Registrar
         </button>
       </form>
       <div>{loginError}</div>
     </div>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

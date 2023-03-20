@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoadingSpinner from './components/LoadingSpinner';
 import NewBooking from './components/NewBooking';
-import NewOrder from './components/NewOrder';
+import NewOrder from './pages/NewOrder';
 import Iloading from './interfaces/Iloading';
 import About from './pages/About';
 import Bookings from './pages/Bookings';

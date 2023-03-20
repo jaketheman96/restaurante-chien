@@ -4,14 +4,13 @@ import Ifoods from "../interfaces/Ifoods";
 
 function FoodsMenu() {
   const { pathname } = useLocation()
-  const { data, isLoading, error } = useGetFetch<Ifoods[]>(`/foods${pathname}`);
+  const { data, error } = useGetFetch<Ifoods[]>(`/foods${pathname}`);
 
   if (error) console.log(error)
 
   return (
     <>
       <div>Menu</div>
-      {isLoading && <div>Loading...</div>}
       {data && data.map((food: Ifoods) => (
         <div key={food.id}>
           <p>{food.name}</p>

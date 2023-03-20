@@ -1,27 +1,29 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '../slicers/loading.slicer';
 
 const url = 'http://localhost:3502';
 
 export function useGetFetch<T>(route: string) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetching = async (): Promise<void> => {
       try {
-        setIsLoading(true);
+        dispatch(setIsLoading(true));
         const response = await fetch(`${url}${route}`);
         const result = await response.json();
         setData(result);
       } catch (err) {
-        setError(err as any)
+        setError(err as any);
       } finally {
-        setIsLoading(false)
+        dispatch(setIsLoading(false));
       }
-    }
-    fetching()
-  }, [route])
+    };
+    fetching();
+  }, [route, dispatch]);
 
-  return { data, error, isLoading };
+  return { data, error };
 }
