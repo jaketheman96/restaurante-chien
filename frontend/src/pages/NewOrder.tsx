@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import NewOrderCards from '../components/NewOrderCards';
 import { useGetFetch } from '../hooks/useGetFetch';
 import Ifoods from '../interfaces/Ifoods';
+import { RootState } from '../store/store';
 
 function NewOrder() {
   const { data, error } = useGetFetch<Ifoods[]>('/foods');
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const totalPrice = useSelector((state: RootState) => state.cart.totalPrice)
 
   const filterFoodByType = (type: string): Ifoods[] | null => {
     const foods = data && data.filter((food) => food.type === type);
@@ -26,12 +27,11 @@ function NewOrder() {
           japaneseFood.map((food: Ifoods) => (
             <NewOrderCards
               key={food.id}
+              id={food.id}
               name={food.name}
               description={food.description}
               price={food.price}
               type={food.type}
-              totalPrice={totalPrice}
-              setTotalPrice={setTotalPrice}
             />
           ))}
       </div>
@@ -41,12 +41,11 @@ function NewOrder() {
           chineseFood.map((food: Ifoods) => (
             <NewOrderCards
               key={food.id}
+              id={food.id}
               name={food.name}
               description={food.description}
               price={food.price}
               type={food.type}
-              totalPrice={totalPrice}
-              setTotalPrice={setTotalPrice}
             />
           ))}
       </div>
@@ -56,12 +55,11 @@ function NewOrder() {
           italianFood.map((food: Ifoods) => (
             <NewOrderCards
               key={food.id}
+              id={food.id}
               name={food.name}
               description={food.description}
               price={food.price}
               type={food.type}
-              totalPrice={totalPrice}
-              setTotalPrice={setTotalPrice}
             />
           ))}
       </div>

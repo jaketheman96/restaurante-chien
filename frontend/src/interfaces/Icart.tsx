@@ -1,4 +1,4 @@
-import Ifoods from './Ifoods';
+import Ifoods from "./Ifoods";
 
 interface Icart {
   cart: Ifoods[];
