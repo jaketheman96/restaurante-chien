@@ -4,7 +4,6 @@ interface Ifoods {
   type: string;
   price: string;
   description: string;
-  quantity?: number;
 }
 
 export default Ifoods;

@@ -5,12 +5,17 @@ function NewOrderCards(props: Iorder) {
   const { name, description, price, totalPrice, setTotalPrice } = props;
   const [quantity, setQuantity] = useState(0);
 
-  // const handleLocalStorage = (type: 'increase' | 'decrease') => {
-  //   const orderValidation = localStorage.getItem('order');
-  //   if (!orderValidation) {
-  //     localStorage.setItem('order')
-  //   }
-  // };
+  const handleLocalStorage = (type: 'increase' | 'decrease') => {
+    const cartOnStorage = localStorage.getItem('order');
+    if (!cartOnStorage) {
+      if (type === 'increase') {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify({ name, description, price, totalPrice, quantity })
+        );
+      }
+    }
+  };
 
   const handleTotalPrice = (operation: string) => {
     const total = totalPrice as number;
@@ -21,6 +26,7 @@ function NewOrderCards(props: Iorder) {
   };
 
   const handleIncreaseQuantity = () => {
+    handleLocalStorage('increase');
     setQuantity((prev) => prev + 1);
     setTotalPrice(handleTotalPrice('increase'));
   };

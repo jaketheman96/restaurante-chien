@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useTimeout from '../hooks/useTimeout';
 import Iusers from '../interfaces/Iuser';
 import { setIsLoading } from '../slicers/loading.slicer';
 import { userInfos } from '../slicers/user.slicer';
@@ -39,15 +40,25 @@ function LoginForm() {
   const handleSubmitForm = async (event: FormEvent<EventTarget>) => {
     event.preventDefault();
     dispatch(setIsLoading(true));
-    const userPayload: Iusers = {
-      email: userEmail,
-      password: userPassword,
-    };
-    const loginUser = await fetchWhenClicked('POST', '/users/login', userPayload, '');
-    if (loginUser.message) return setLoginError('Login inválido');
-    localStorage.setItem('user', JSON.stringify(loginUser));
-    dispatch(userInfos(loginUser));
-    dispatch(setIsLoading(false));
+    try {
+      const userPayload: Iusers = {
+        email: userEmail,
+        password: userPassword,
+      };
+      const loginUser = await fetchWhenClicked(
+        'POST',
+        '/users/login',
+        userPayload,
+        ''
+      );
+      if (loginUser.message) return setLoginError('Login inválido');
+      localStorage.setItem('user', JSON.stringify(loginUser));
+      dispatch(userInfos(loginUser));
+    } catch (error: any) {
+      return setLoginError(error.message);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
     return navigate('/portal');
   };
 
@@ -55,11 +66,7 @@ function LoginForm() {
     navigate('/register');
   };
 
-  useEffect(() => {
-    const TWO_SECONDS = 2000;
-    const hideMessage = setTimeout(() => setLoginError(''), TWO_SECONDS);
-    return () => clearTimeout(hideMessage);
-  }, [loginError]);
+  useTimeout(() => setLoginError(''));
 
   return (
     <div>
