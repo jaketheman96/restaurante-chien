@@ -3,7 +3,7 @@ interface Ifoods {
   name: string;
   type?: string;
   price: number;
-  description: string;
+  description?: string;
 }
 
 export default Ifoods;

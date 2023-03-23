@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import NewOrderCards from '../components/NewOrderCards';
 import useCart from '../hooks/useCart';
 import { useGetFetch } from '../hooks/useGetFetch';
@@ -78,7 +79,9 @@ function NewOrder() {
           ))}
       </div>
       <div>
-        <p>{`Preço total: R$${totalPrice.toFixed(2)}`}</p>
+        <Link to='/checkout'>
+          <p>{`Total: R$${totalPrice.toFixed(2)}`}</p>
+        </Link>
       </div>
     </div>
   );

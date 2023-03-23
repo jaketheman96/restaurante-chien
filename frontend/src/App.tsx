@@ -16,6 +16,7 @@ import Orders from './pages/Orders';
 import Portal from './pages/Portal';
 import Register from './pages/Register';
 import { RootState } from './store/store';
+import Checkout from './pages/Checkout';
 
 function App() {
   const { isLoading } = useSelector(
@@ -39,6 +40,7 @@ function App() {
         <Route path='/orders/new' element={<NewOrder />} />
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/bookings/new' element={<NewBooking />} />
+        <Route path='/checkout' element={<Checkout />} />
       </Routes>
       {isLoading && <LoadingSpinner />}
     </div>
