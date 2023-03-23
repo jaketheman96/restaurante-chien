@@ -1,12 +1,20 @@
 import { useSelector } from 'react-redux';
 import NewOrderCards from '../components/NewOrderCards';
+import useCart from '../hooks/useCart';
 import { useGetFetch } from '../hooks/useGetFetch';
 import Ifoods from '../interfaces/Ifoods';
+import Iorder from '../interfaces/Iorder';
 import { RootState } from '../store/store';
 
 function NewOrder() {
   const { data, error } = useGetFetch<Ifoods[]>('/foods');
-  const totalPrice = useSelector((state: RootState) => state.cart.totalPrice)
+  const { addToCart } = useCart()
+  const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
+
+  const handleAddButton = (payload: Iorder) => {
+    addToCart(payload)
+    // handleLocalStorage();
+  };
 
   const filterFoodByType = (type: string): Ifoods[] | null => {
     const foods = data && data.filter((food) => food.type === type);
@@ -32,6 +40,7 @@ function NewOrder() {
               description={food.description}
               price={food.price}
               type={food.type}
+              handleAddButton={handleAddButton}
             />
           ))}
       </div>
@@ -46,6 +55,7 @@ function NewOrder() {
               description={food.description}
               price={food.price}
               type={food.type}
+              handleAddButton={handleAddButton}
             />
           ))}
       </div>
@@ -60,6 +70,7 @@ function NewOrder() {
               description={food.description}
               price={food.price}
               type={food.type}
+              handleAddButton={handleAddButton}
             />
           ))}
       </div>

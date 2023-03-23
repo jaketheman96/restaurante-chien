@@ -1,7 +1,7 @@
 import Ifoods from "./Ifoods";
 
 interface Icart {
-  cart: Ifoods[];
+  orderCart: Ifoods[];
   totalPrice: number;
 }
 
