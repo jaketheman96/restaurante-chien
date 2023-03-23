@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import Iorder from '../interfaces/Iorder';
+import useUserValidator from './useUserValidator';
 
 function useCart() {
   const [storeCart, setStoreCart] = useState<Iorder[] | []>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  useUserValidator()
 
   useEffect(() => {
     const handleStorage = () => {
@@ -15,11 +18,10 @@ function useCart() {
     handleStorage();
   }, []);
 
-  // falta implementar o handleStorage
-
   const addToLocalCart = (payload: Iorder) => {
     if (storeCart.length === 0) {
       setStoreCart([payload]);
+      localStorage.setItem('cart', JSON.stringify([payload]));
       return;
     } else {
       if (
@@ -31,9 +33,14 @@ function useCart() {
           }
           return item;
         });
+        localStorage.setItem('cart', JSON.stringify(newArray));
         setStoreCart(newArray);
         return;
       } else {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify([...(storeCart as Iorder[]), payload])
+        );
         setStoreCart([...(storeCart as Iorder[]), payload]);
         return;
       }
@@ -53,6 +60,7 @@ function useCart() {
       }
       return item.id !== payload.id;
     });
+    localStorage.setItem('cart', JSON.stringify(cartFiltered));
     return setStoreCart(cartFiltered);
   };
 
