@@ -2,7 +2,7 @@ interface Ifoods {
   id?: string;
   name: string;
   type?: string;
-  price: string;
+  price: number;
   description: string;
 }
 

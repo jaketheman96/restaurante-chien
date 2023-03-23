@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Iorder from '../interfaces/Iorder';
 
 function useCart() {
-  const dispatch = useDispatch();
-  const [storeCart, setStoreCart] = useState<Iorder[]>([]);
+  const [storeCart, setStoreCart] = useState<Iorder[] | []>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
@@ -17,9 +15,11 @@ function useCart() {
     handleStorage();
   }, []);
 
+  // falta implementar o handleStorage
+
   const addToLocalCart = (payload: Iorder) => {
     if (storeCart.length === 0) {
-      setStoreCart([...(storeCart as Iorder[]), payload]);
+      setStoreCart([payload]);
       return;
     } else {
       if (
@@ -40,24 +40,49 @@ function useCart() {
     }
   };
 
-  useEffect(() => {
-    const handleTotalPrice = () => {
-      if (storeCart.length !== 0) {
-        const unityPrice = storeCart.map((item: Iorder) => {
-          const unityPriceEach = Number(item.quantity) * Number(item.price);
-          return unityPriceEach;
-        });
-        const totalPrice = unityPrice.reduce(
-          (acc: number, current: number) => acc + current,
-          0
-        );
-        setTotalPrice(totalPrice);
+  const removeFromLocalCart = (payload: Iorder) => {
+    const isItemInCart = storeCart.some(
+      (item: Iorder) => item.id === payload.id
+    );
+    if (!isItemInCart) {
+      return;
+    }
+    const cartFiltered = storeCart.filter((item: Iorder) => {
+      if (item.id === payload.id && (item.quantity as number) > 1) {
+        return ((item.quantity as number) -= 1);
       }
+      return item.id !== payload.id;
+    });
+    return setStoreCart(cartFiltered);
+  };
+
+  useEffect(() => {
+    const INITIAL_PRICE = 0;
+    const handleTotalPrice = () => {
+      const unityPrice = storeCart.map((item: Iorder) => {
+        if ((item.quantity as number) >= 1) {
+          const unityPriceEach = (item.quantity as number) * item.price;
+          return unityPriceEach;
+        } else {
+          return INITIAL_PRICE;
+        }
+      });
+      const totalPrice = unityPrice.reduce(
+        (acc: number, current: number) => acc + current,
+        INITIAL_PRICE
+      );
+      setTotalPrice(totalPrice);
     };
     handleTotalPrice();
-  }, [storeCart, dispatch]);
+  }, [storeCart]);
 
-  return { storeCart, setStoreCart, addToLocalCart, totalPrice };
+  return {
+    storeCart,
+    setStoreCart,
+    addToLocalCart,
+    totalPrice,
+    removeFromLocalCart,
+  };
 }
 
 export default useCart;

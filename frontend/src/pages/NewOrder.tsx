@@ -6,10 +6,14 @@ import Iorder from '../interfaces/Iorder';
 
 function NewOrder() {
   const { data, error } = useGetFetch<Ifoods[]>('/foods');
-  const { addToLocalCart, totalPrice } = useCart()
+  const { addToLocalCart, totalPrice, removeFromLocalCart } = useCart();
 
   const handleAddButton = (payload: Iorder) => {
-    addToLocalCart(payload)
+    addToLocalCart(payload);
+  };
+
+  const handleRemoveButton = (payload: Iorder) => {
+    removeFromLocalCart(payload);
   };
 
   const filterFoodByType = (type: string): Ifoods[] | null => {
@@ -37,6 +41,7 @@ function NewOrder() {
               price={food.price}
               type={food.type}
               handleAddButton={handleAddButton}
+              handleRemoveButton={handleRemoveButton}
             />
           ))}
       </div>
@@ -52,6 +57,7 @@ function NewOrder() {
               price={food.price}
               type={food.type}
               handleAddButton={handleAddButton}
+              handleRemoveButton={handleRemoveButton}
             />
           ))}
       </div>
@@ -67,6 +73,7 @@ function NewOrder() {
               price={food.price}
               type={food.type}
               handleAddButton={handleAddButton}
+              handleRemoveButton={handleRemoveButton}
             />
           ))}
       </div>
