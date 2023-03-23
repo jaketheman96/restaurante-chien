@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Iorder from '../interfaces/Iorder';
 
 function useCart() {
+  const dispatch = useDispatch();
   const [storeCart, setStoreCart] = useState<Iorder[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
@@ -9,15 +11,16 @@ function useCart() {
     const handleStorage = () => {
       const cart = localStorage.getItem('cart');
       if (!cart) return;
-      const parsedCart = JSON.parse(cart) ;
+      const parsedCart = JSON.parse(cart);
       setStoreCart(parsedCart);
     };
     handleStorage();
   }, []);
 
-  const addToCart = (payload: Iorder) => {
+  const addToLocalCart = (payload: Iorder) => {
     if (storeCart.length === 0) {
       setStoreCart([...(storeCart as Iorder[]), payload]);
+      return;
     } else {
       if (
         storeCart.some((item: Iorder) => Number(item.id) === Number(payload.id))
@@ -29,8 +32,10 @@ function useCart() {
           return item;
         });
         setStoreCart(newArray);
+        return;
       } else {
         setStoreCart([...(storeCart as Iorder[]), payload]);
+        return;
       }
     }
   };
@@ -50,9 +55,9 @@ function useCart() {
       }
     };
     handleTotalPrice();
-  }, [storeCart]);
+  }, [storeCart, dispatch]);
 
-  return { storeCart, setStoreCart, addToCart, totalPrice };
+  return { storeCart, setStoreCart, addToLocalCart, totalPrice };
 }
 
 export default useCart;

@@ -1,19 +1,15 @@
-import { useSelector } from 'react-redux';
 import NewOrderCards from '../components/NewOrderCards';
 import useCart from '../hooks/useCart';
 import { useGetFetch } from '../hooks/useGetFetch';
 import Ifoods from '../interfaces/Ifoods';
 import Iorder from '../interfaces/Iorder';
-import { RootState } from '../store/store';
 
 function NewOrder() {
   const { data, error } = useGetFetch<Ifoods[]>('/foods');
-  const { addToCart } = useCart()
-  const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
+  const { addToLocalCart, totalPrice } = useCart()
 
   const handleAddButton = (payload: Iorder) => {
-    addToCart(payload)
-    // handleLocalStorage();
+    addToLocalCart(payload)
   };
 
   const filterFoodByType = (type: string): Ifoods[] | null => {
