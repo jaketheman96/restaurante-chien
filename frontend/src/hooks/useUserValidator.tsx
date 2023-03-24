@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { userInfos } from '../slicers/user.slicer';
 
 function useUserValidator() {
   const navigate = useNavigate();
-
-// adicionar um outro retorno que se houver user, ele pega do localstorage e envia pro global state
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const userValidator = () => {
@@ -12,10 +13,11 @@ function useUserValidator() {
       if (!user) {
         return navigate('/login');
       }
-      return;
+      const userParsed = JSON.parse(user);
+      return dispatch(userInfos(userParsed));
     };
     userValidator();
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   return;
 }

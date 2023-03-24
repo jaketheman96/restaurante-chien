@@ -75,7 +75,7 @@ function RegisterForm() {
 
   const TWO_SECONDS = 2000
 
-  useTimeout(() => setShowRegisterError(''), TWO_SECONDS);
+  useTimeout(() => setShowRegisterError(''), TWO_SECONDS, '');
 
   return (
     <div>

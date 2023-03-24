@@ -1,18 +1,26 @@
 import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import PortalNavbar from '../components/PortalNavbar';
 import useCart from '../hooks/useCart';
+import { setIsLoading } from '../slicers/loading.slicer';
 import { selectPaymentMethod } from '../slicers/payment.slicer';
 
 function Payment() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { totalPrice } = useCart();
   const [paymentMethod, setPaymentMethod] = useState('');
-
+  const FIVE_SECONDS = 5000;
+  
   const handleClick = () => {
     if (paymentMethod !== '') {
+      dispatch(setIsLoading(true));
       dispatch(selectPaymentMethod({ paymentMethod }));
+      setTimeout(() => dispatch(setIsLoading(false)), FIVE_SECONDS);
+      return navigate('/payment/success');
     }
+    return;
   };
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
