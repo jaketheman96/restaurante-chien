@@ -31,6 +31,7 @@ function Payment() {
           id='payment-method'
           onChange={handleSelectChange}
         >
+          <option value=''>-----</option>
           <option value='credit'>Crédito</option>
           <option value='debit'>Débito</option>
           <option value='pix'>Pix</option>

@@ -66,7 +66,9 @@ function LoginForm() {
     navigate('/register');
   };
 
-  useTimeout(() => setLoginError(''));
+  const TWO_SECONDS = 2000
+
+  useTimeout(() => setLoginError(''), TWO_SECONDS);
 
   return (
     <div>

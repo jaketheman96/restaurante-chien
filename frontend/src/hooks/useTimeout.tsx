@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 
-function useTimeout(func: (param: string) => void): void {
+function useTimeout(func: (param: any) => void, seconds: number): void {
   useEffect(() => {
-    const TWO_SECONDS = 2000;
-    const hideMessage = setTimeout(() => func(''), TWO_SECONDS);
+    const hideMessage = setTimeout(() => func(''), seconds);
     return () => clearTimeout(hideMessage);
-  }, [func]);
+  }, [func, seconds]);
 }
 
 export default useTimeout;

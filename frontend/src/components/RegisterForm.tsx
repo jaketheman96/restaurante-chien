@@ -73,7 +73,9 @@ function RegisterForm() {
     return navigate('/portal');
   };
 
-  useTimeout(() => setShowRegisterError(''));
+  const TWO_SECONDS = 2000
+
+  useTimeout(() => setShowRegisterError(''), TWO_SECONDS);
 
   return (
     <div>
