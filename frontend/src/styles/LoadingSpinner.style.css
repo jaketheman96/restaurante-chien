@@ -7,6 +7,9 @@
   }
 }
 .loading-spinner {
+  position: absolute;
+  margin-left: auto; 
+  margin-right: auto; 
   width: 50px;
   height: 50px;
   border: 10px solid #f3f3f3; /* Light grey */
@@ -16,12 +19,12 @@
 }
 
 .spinner-container {
-  background-color: white;
-  display: grid;
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
-  min-width: 100%;
+  width: 100%;
+  height: 100%;
 }
+
 
 /* https://contactmentor.com/how-to-add-loading-spinner-react-js/ */

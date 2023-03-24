@@ -47,7 +47,9 @@ function Checkout() {
       <button type='button' onClick={() => navigate('/orders/new')}>
         Voltar
       </button>
-      <button type='button'>Continuar</button>
+      <button type='button' onClick={() => navigate('/payment')}>
+        Continuar
+      </button>
       <p>{`R$${totalPrice.toFixed(2)}`}</p>
     </div>
   );

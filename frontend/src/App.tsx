@@ -17,6 +17,7 @@ import Portal from './pages/Portal';
 import Register from './pages/Register';
 import { RootState } from './store/store';
 import Checkout from './pages/Checkout';
+import Payment from './pages/Payment';
 
 function App() {
   const { isLoading } = useSelector(
@@ -41,6 +42,7 @@ function App() {
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/bookings/new' element={<NewBooking />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/payment' element={ <Payment /> } />
       </Routes>
       {isLoading && <LoadingSpinner />}
     </div>
