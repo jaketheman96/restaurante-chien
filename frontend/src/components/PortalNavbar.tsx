@@ -9,6 +9,7 @@ function PortalNavbar() {
 
   const handleClick = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('cart');
     return navigate('/');
   };
 
