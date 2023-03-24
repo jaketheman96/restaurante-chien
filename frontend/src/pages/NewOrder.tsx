@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import NewOrderCards from '../components/NewOrderCards';
+import PortalNavbar from '../components/PortalNavbar';
 import useCart from '../hooks/useCart';
 import { useGetFetch } from '../hooks/useGetFetch';
 import Ifoods from '../interfaces/Ifoods';
@@ -30,6 +31,7 @@ function NewOrder() {
 
   return (
     <div>
+      <PortalNavbar />
       <div>
         <h1>Comida Japonesa</h1>
         {japaneseFood &&
