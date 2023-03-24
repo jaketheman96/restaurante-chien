@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartTableBody from '../components/CartTableBody';
 import PortalNavbar from '../components/PortalNavbar';
@@ -9,6 +9,7 @@ import '../styles/CartTable.style.css';
 function Checkout() {
   const navigate = useNavigate();
   const { storeCart, totalPrice, removeFullItemFromCart } = useCart();
+  const [orderNotes, setOrderNotes] = useState('');
 
   const handleRemoveFullItem = (event: MouseEvent<Element>) => {
     const target = event.target as HTMLButtonElement;
@@ -44,6 +45,16 @@ function Checkout() {
             ))}
         </tbody>
       </table>
+      <label htmlFor='order_notes'>
+        Alguma observação?
+        <textarea
+          name='order_notes'
+          rows={4}
+          cols={20}
+          placeholder='Ex: Sem cebola'
+          onChange={(e) => setOrderNotes(e.target.value)}
+        />
+      </label>
       <button type='button' onClick={() => navigate('/orders/new')}>
         Voltar
       </button>
