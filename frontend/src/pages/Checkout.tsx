@@ -50,7 +50,7 @@ function Checkout() {
       <button type='button' onClick={() => navigate('/payment')}>
         Continuar
       </button>
-      <p>{`R$${totalPrice.toFixed(2)}`}</p>
+      <p>{`R$${totalPrice.toFixed(2).replace('.', ',')}`}</p>
     </div>
   );
 }

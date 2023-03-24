@@ -82,7 +82,7 @@ function NewOrder() {
       </div>
       <div>
         <Link to='/checkout'>
-          <p>{`Total: R$${totalPrice.toFixed(2)}`}</p>
+          <p>{`Total: R$${totalPrice.toFixed(2).replace('.', ',')}`}</p>
         </Link>
       </div>
     </div>
