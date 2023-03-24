@@ -6,7 +6,7 @@ function useCart() {
   const [storeCart, setStoreCart] = useState<Iorder[] | []>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  useUserValidator()
+  useUserValidator();
 
   useEffect(() => {
     const handleStorage = () => {
@@ -45,6 +45,13 @@ function useCart() {
         return;
       }
     }
+  };
+
+  const removeFullItemFromCart = (itemPosition: number) => {
+    const itemByIndex = storeCart[itemPosition - 1].id;
+    const newCart = storeCart.filter((item: Iorder) => item.id !== itemByIndex);
+    setStoreCart(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
   const removeFromLocalCart = (payload: Iorder) => {
@@ -90,6 +97,7 @@ function useCart() {
     addToLocalCart,
     totalPrice,
     removeFromLocalCart,
+    removeFullItemFromCart,
   };
 }
 

@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import Ifoods from "./Ifoods";
 
 interface Iorder extends Ifoods {
@@ -5,6 +6,7 @@ interface Iorder extends Ifoods {
   quantity?: number;
   handleAddButton?: (payload: any) => void
   handleRemoveButton?: (payload: any) => void
+  handleRemoveFullItem?: (event: MouseEvent) => void
 }
 
 export default Iorder
