@@ -6,7 +6,9 @@ import Users from './user.model';
 class Orders extends Model<Iorders> {
   declare id: number;
   declare userId: number;
-  declare foodId: number;
+  declare deliveryAddress: string;
+  declare status: string;
+  declare totalPrice: number;
   declare orderNotes: string;
   declare orderDate: Date;
 }

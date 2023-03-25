@@ -1,4 +1,3 @@
-import Foods from "../../database/models/foods.model";
 import Orders from "../../database/models/orders.model";
 import Users from "../../database/models/user.model";
 import Iorders from "../../interfaces/Iorders";
@@ -13,18 +12,13 @@ class OrderService {
 
   async getAllOrders(): Promise<Iorders[]> {
     const orders = await this.orderModel.findAll({
-      attributes: { exclude: ["userId", "foodId"] },
+      attributes: { exclude: ["userId"] },
       include: [
         {
           model: Users,
           as: 'user',
           attributes: { exclude: ["email", "role", "password"] }
         },
-        {
-          model: Foods,
-          as: 'food',
-          attributes: { exclude: ["id", "type", "description"] }
-        }
       ],
     })
     return orders;

@@ -25,17 +25,6 @@ module.exports = {
         type: Sequelize.STRING,
         field: 'delivery_address',
       },
-      foodId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        field: 'food_id',
-        references: {
-          model: 'foods',
-          key: 'id'
-        }
-      },
       totalPrice: {
         allowNull: false,
         type: Sequelize.DECIMAL,
