@@ -1,8 +1,7 @@
-import { INTEGER, Model, STRING, DATE } from "sequelize";
+import { INTEGER, Model, STRING, DATE, DECIMAL } from 'sequelize';
 import db from '.';
-import Iorders from "../../interfaces/Iorders";
-import Foods from "./foods.model";
-import Users from "./user.model";
+import Iorders from '../../interfaces/Iorders';
+import Users from './user.model';
 
 class Orders extends Model<Iorders> {
   declare id: number;
@@ -12,41 +11,52 @@ class Orders extends Model<Iorders> {
   declare orderDate: Date;
 }
 
-Orders.init({
-  id: {
-    type: INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true,
+Orders.init(
+  {
+    id: {
+      type: INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    userId: {
+      type: INTEGER,
+      allowNull: false,
+      field: 'user_id',
+    },
+    orderNotes: {
+      type: STRING,
+      allowNull: true,
+      field: 'order_notes',
+    },
+    orderDate: {
+      type: DATE,
+      allowNull: false,
+      field: 'order_date',
+    },
+    deliveryAddress: {
+      type: STRING,
+      allowNull: false,
+      field: 'delivery_address',
+    },
+    status: {
+      type: STRING,
+      allowNull: false,
+    },
+    totalPrice: {
+      type: DECIMAL,
+      allowNull: false,
+      field: 'total_price',
+    },
   },
-  userId: {
-    type: INTEGER,
-    allowNull: false,
-    field: 'user_id',
-  },
-  foodId: {
-    type: INTEGER,
-    allowNull: false,
-    field: 'food_id',
-  },
-  orderNotes: {
-    type: STRING,
-    allowNull: true,
-    field: 'order_notes',
-  },
-  orderDate: {
-    type: DATE,
-    allowNull: false,
-    field: 'order_date'
-  },
-}, {
-  timestamps: false,
-  sequelize: db,
-  modelName: 'orders',
-  underscored: true,
-})
+  {
+    timestamps: false,
+    sequelize: db,
+    modelName: 'orders',
+    underscored: true,
+  }
+);
 
 Orders.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
-Orders.belongsTo(Foods, { foreignKey: 'foodId', as: 'food' });
 
 export default Orders;

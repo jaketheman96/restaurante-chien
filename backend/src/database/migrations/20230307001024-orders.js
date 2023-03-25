@@ -20,6 +20,11 @@ module.exports = {
           key: 'id'
         }
       },
+      deliveryAddress: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        field: 'delivery_address',
+      },
       foodId: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -30,6 +35,15 @@ module.exports = {
           model: 'foods',
           key: 'id'
         }
+      },
+      totalPrice: {
+        allowNull: false,
+        type: Sequelize.DECIMAL,
+        field: 'total_price',
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       orderDate: {
         allowNull: false,
