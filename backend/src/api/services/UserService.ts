@@ -47,6 +47,7 @@ class UserService {
     if (!comparingPassword) return statusCode.UNAUTHORIZED;
     const token = tokenHelper.generateToken(user);
     return {
+      id: user.id,
       name: user.name,
       email: user.email,
       token,
@@ -69,6 +70,7 @@ class UserService {
     });
     const token = tokenHelper.generateToken(user);
     return {
+      id: user.id,
       name: user.name,
       email: user.email,
       token,
