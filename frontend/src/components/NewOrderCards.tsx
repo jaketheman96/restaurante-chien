@@ -31,7 +31,7 @@ function NewOrderCards(props: Iorder) {
       <h3>{name}</h3>
       <p>{description}</p>
       <p>{`R$${price.toFixed(2).replace('.', ',')}`}</p>
-      <button id={id} type='button' name='add' onClick={handleAddClick}>
+      <button id={String(id)} type='button' name='add' onClick={handleAddClick}>
         +
       </button>
       <p>{quantity}</p>

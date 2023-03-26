@@ -5,18 +5,17 @@ import { userInfos } from '../slicers/user.slicer';
 
 function useUserValidator() {
   const [isUserLogged, setIsUserLogged] = useState<boolean>(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userValidator = () => {
       const user = localStorage.getItem('user');
       if (!user) {
-        setIsUserLogged(false)
+        setIsUserLogged(false);
         return navigate('/login');
       }
-      const userParsed = JSON.parse(user);
-      dispatch(userInfos(userParsed));
+      dispatch(userInfos(JSON.parse(user)));
       return setIsUserLogged(true);
     };
     userValidator();

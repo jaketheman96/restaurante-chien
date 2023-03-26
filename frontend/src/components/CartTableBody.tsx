@@ -10,7 +10,7 @@ function CartTableBody(props: Iorder) {
       <td>{`R$${price.toFixed(2).replace('.', ',')}`}</td>
       <td>{quantity}</td>
       <td>
-        <button id={id} type='button' onClick={handleRemoveFullItem}>
+        <button id={String(id)} type='button' onClick={handleRemoveFullItem}>
           X
         </button>
       </td>

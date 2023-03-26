@@ -1,20 +1,21 @@
 import { MouseEvent, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CartTableBody from '../components/CartTableBody';
 import PortalNavbar from '../components/PortalNavbar';
 import useCart from '../hooks/useCart';
+import Icheckout from '../interfaces/Icheckout';
 import Iorder from '../interfaces/Iorder';
-// import { handleCheckoutInfos } from '../slicers/checkout.slicer';
+import { handleCheckoutInfos } from '../slicers/checkout.slicer';
+import { RootState } from '../store/store';
 import '../styles/CartTable.style.css';
 
 function Checkout() {
   const navigate = useNavigate();
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { id } = useSelector((state: RootState) => state.user);
   const { storeCart, totalPrice, removeFullItemFromCart } = useCart();
   const [orderNotes, setOrderNotes] = useState('');
-
-  console.log(orderNotes);
 
   const handleRemoveFullItem = (event: MouseEvent<Element>) => {
     const target = event.target as HTMLButtonElement;
@@ -22,8 +23,20 @@ function Checkout() {
     removeFullItemFromCart(itemPosition);
   };
 
+  const payload: Icheckout = {
+    userId: id as number,
+    deliveryAddress: '',
+    foods: storeCart.map((item) => ({
+      foodId: Number(item.id) as number,
+      quantity: item.quantity as number,
+    })),
+    status: 'Pendente',
+    totalPrice,
+    orderNotes,
+  };
+
   const handleSubmitCheckout = () => {
-    // dispatch(handleCheckoutInfos())
+    dispatch(handleCheckoutInfos(payload));
     navigate('/checkout/address');
   };
 
@@ -46,7 +59,7 @@ function Checkout() {
             storeCart.map((itens: Iorder, index: number) => (
               <CartTableBody
                 key={index}
-                id={String(index + 1)}
+                id={index + 1}
                 name={itens.name}
                 quantity={itens.quantity}
                 price={itens.price}
