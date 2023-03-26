@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import ErrorHandler from './middlewares/ErrorHandler';
 import tableRoute from './routes/Tables';
-import userRoute from './routes/User';
+import userRoute from './routes/Users';
 import bookingRoute from './routes/Bookings';
 import foodRouter from './routes/Foods';
 import 'express-async-errors';

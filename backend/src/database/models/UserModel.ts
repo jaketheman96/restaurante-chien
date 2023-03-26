@@ -1,6 +1,7 @@
 import { STRING, INTEGER, Model } from 'sequelize';
 import db from '.';
 import Iusers from '../../interfaces/Iusers';
+import Bookings from './BookingsModel';
 
 class Users extends Model<Iusers> {
   declare id: number;
@@ -30,5 +31,9 @@ Users.init(
     underscored: true,
   }
 );
+
+Users.hasMany(Bookings, { foreignKey: 'userId', as: 'bookings' });
+
+Bookings.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
 
 export default Users;

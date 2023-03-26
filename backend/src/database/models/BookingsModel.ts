@@ -23,9 +23,6 @@ Bookings.init({
   underscored: true,
 });
 
-Bookings.belongsTo(Users,
-  { foreignKey: 'userId', as: 'user' });
-
 Bookings.belongsTo(Tables,
   { foreignKey: 'tableId', as: 'table' });
 
