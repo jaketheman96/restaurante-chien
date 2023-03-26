@@ -1,8 +1,6 @@
-import { Model } from 'sequelize/types';
+import { INTEGER, Model } from 'sequelize';
 import IordersFoods from '../../interfaces/IordersFoods';
 import db from '.';
-import { INTEGER } from 'sequelize';
-import Orders from './orders.model';
 import Foods from './foods.model';
 
 class OrdersFoods extends Model<IordersFoods> {
@@ -17,11 +15,19 @@ OrdersFoods.init(
       type: INTEGER,
       allowNull: false,
       field: 'food_id',
+      references: {
+        model: 'foods',
+        key: 'id',
+      },
     },
     orderId: {
       type: INTEGER,
       allowNull: false,
       field: 'order_id',
+      references: {
+        model: 'orders',
+        key: 'id',
+      },
     },
     quantity: {
       type: INTEGER,
@@ -31,18 +37,11 @@ OrdersFoods.init(
   {
     timestamps: false,
     sequelize: db,
-    modelName: 'orders_foods',
+    modelName: 'ordersFoods',
     underscored: true,
   }
 );
 
-OrdersFoods.belongsToMany(Orders, {
-  through: OrdersFoods,
-  foreignKey: 'orderId',
-  as: 'order',
-});
-OrdersFoods.belongsToMany(Foods, {
-  through: OrdersFoods,
-  foreignKey: 'orderId',
-  as: 'order',
-});
+OrdersFoods.belongsTo(Foods, { foreignKey: 'foodId', as: 'foods' });
+
+export default OrdersFoods;

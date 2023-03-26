@@ -1,6 +1,8 @@
 import { INTEGER, Model, STRING, DATE, DECIMAL } from 'sequelize';
 import db from '.';
 import Iorders from '../../interfaces/Iorders';
+import Foods from './foods.model';
+import OrdersFoods from './ordersFoods.model';
 import Users from './user.model';
 
 class Orders extends Model<Iorders> {
@@ -54,11 +56,25 @@ Orders.init(
   {
     timestamps: false,
     sequelize: db,
-    modelName: 'orders',
+    modelName: 'Orders',
     underscored: true,
   }
 );
 
 Orders.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
+
+Orders.belongsToMany(Foods, {
+  as: 'order',
+  through: OrdersFoods,
+  foreignKey: 'orderId',
+  otherKey: 'foodId',
+});
+
+Foods.belongsToMany(Orders, {
+  as: 'orders',
+  through: OrdersFoods,
+  foreignKey: 'foodId',
+  otherKey: 'orderId',
+})
 
 export default Orders;

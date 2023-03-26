@@ -6,29 +6,29 @@ module.exports = {
       foodId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         field: 'food_id',
         references: {
           model: 'foods',
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       orderId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         field: 'order_id',
         references: {
           model: 'orders',
           key: 'id',
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       quantity: {
-        type: Sequelize.INTEGER,
         allowNull: false,
-      }
+        type: Sequelize.INTEGER,
+      },
     });
 
   },

@@ -1,7 +1,9 @@
-import Orders from "../../database/models/orders.model";
-import Users from "../../database/models/user.model";
-import Iorders from "../../interfaces/Iorders";
-import statusCode from "../../utils/statusCode";
+import Foods from '../../database/models/foods.model';
+import Orders from '../../database/models/orders.model';
+import OrdersFoods from '../../database/models/ordersFoods.model';
+import Users from '../../database/models/user.model';
+import Iorders from '../../interfaces/Iorders';
+import statusCode from '../../utils/statusCode';
 
 class OrderService {
   private orderModel: typeof Orders;
@@ -12,21 +14,25 @@ class OrderService {
 
   async getAllOrders(): Promise<Iorders[]> {
     const orders = await this.orderModel.findAll({
-      attributes: { exclude: ["userId"] },
       include: [
         {
           model: Users,
           as: 'user',
-          attributes: { exclude: ["email", "role", "password"] }
+          attributes: { exclude: ['password', 'email', 'id', 'role'] },
+        },
+        {
+          model: Foods,
+          as: 'order',
+          through: { attributes: ['quantity'] },
         },
       ],
-    })
+    });
     return orders;
   }
 
   async getOrdersById(orderId: number): Promise<Iorders | number> {
-    const order = await this.orderModel.findByPk(orderId);
-    if (!order) return statusCode.NOT_FOUND
+    const order = await this.orderModel.findByPk(orderId, { include: [Foods] });
+    if (!order) return statusCode.NOT_FOUND;
     return order;
   }
 
@@ -36,17 +42,20 @@ class OrderService {
     return;
   }
 
-  async changeOrder(orderId: number, orderInfos: Iorders): Promise<void | number> {
+  async changeOrder(
+    orderId: number,
+    orderInfos: Iorders
+  ): Promise<void | number> {
     const orderValidation = await this.getOrdersById(orderId);
     if (orderValidation === 404) return statusCode.NOT_FOUND;
-    await this.orderModel.update(orderInfos, { where: { id: orderId } })
+    await this.orderModel.update(orderInfos, { where: { id: orderId } });
     return;
   }
 
   async deleteOrder(orderId: number): Promise<void | number> {
     const orderValidation = await this.getOrdersById(orderId);
     if (orderValidation === 404) return statusCode.NOT_FOUND;
-    await this.orderModel.destroy({ where: { id: orderId } })
+    await this.orderModel.destroy({ where: { id: orderId } });
     return;
   }
 }

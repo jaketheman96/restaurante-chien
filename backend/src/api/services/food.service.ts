@@ -1,16 +1,17 @@
-import Foods from "../../database/models/foods.model";
-import Ifoods from "../../interfaces/Ifoods";
-import FoodValidator from "../../middlewares/validations/food.validator";
-import statusCode from "../../utils/statusCode";
-import { Op } from 'sequelize'
+import Foods from '../../database/models/foods.model';
+import Ifoods from '../../interfaces/Ifoods';
+import FoodValidator from '../../middlewares/validations/food.validator';
+import statusCode from '../../utils/statusCode';
+import { Op } from 'sequelize';
+import Orders from '../../database/models/orders.model';
 
 class FoodService {
   private foodModel: typeof Foods;
   private foodValidator: FoodValidator;
 
   constructor() {
-    this.foodModel = Foods
-    this.foodValidator = new FoodValidator()
+    this.foodModel = Foods;
+    this.foodValidator = new FoodValidator();
   }
 
   async getAllFoods(): Promise<Ifoods[]> {
@@ -31,15 +32,22 @@ class FoodService {
   }
 
   async createFood(foodDetails: Ifoods): Promise<void | string> {
-    const { name, type, description, price } = foodDetails
-    const inputValidation = this.foodValidator
-      .validate({ name, type, description, price });
+    const { name, type, description, price } = foodDetails;
+    const inputValidation = this.foodValidator.validate({
+      name,
+      type,
+      description,
+      price,
+    });
     if (typeof inputValidation === 'string') return inputValidation;
     await this.foodModel.create(foodDetails);
     return;
   }
 
-  async updateFood(foodDetails: Ifoods, foodId: number): Promise<void | number> {
+  async updateFood(
+    foodDetails: Ifoods,
+    foodId: number
+  ): Promise<void | number> {
     const foodValidator = await this.getFoodById(Number(foodId));
     if (foodValidator === 404) return statusCode.NOT_FOUND;
     await this.foodModel.update(foodDetails, { where: { id: foodId } });

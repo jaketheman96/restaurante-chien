@@ -19,7 +19,7 @@ Bookings.init({
 }, {
   timestamps: false,
   sequelize: db,
-  modelName: 'bookings',
+  modelName: 'Bookings',
   underscored: true,
 });
 

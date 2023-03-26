@@ -1,13 +1,13 @@
-import Bookings from "../../database/models/bookings.model";
-import Tables from "../../database/models/table.model";
-import Users from "../../database/models/user.model";
-import Ibookings from "../../interfaces/Ibookings";
-import statusCode from "../../utils/statusCode";
-import TableService from "./table.service";
+import Bookings from '../../database/models/bookings.model';
+import Tables from '../../database/models/table.model';
+import Users from '../../database/models/user.model';
+import Ibookings from '../../interfaces/Ibookings';
+import statusCode from '../../utils/statusCode';
+import TableService from './table.service';
 
 class BookingService {
   private bookingsModel: typeof Bookings;
-  private tableService: TableService
+  private tableService: TableService;
 
   constructor() {
     this.bookingsModel = Bookings;
@@ -21,24 +21,28 @@ class BookingService {
         {
           model: Users,
           as: 'user',
-          attributes: { exclude: ['id', 'password', 'email', 'role'] }
+          attributes: { exclude: ['id', 'password', 'email', 'role'] },
         },
         {
           model: Tables,
           as: 'table',
-          attributes: { exclude: ['available'] }
-        }
-      ]
+          attributes: { exclude: ['available'] },
+        },
+      ],
     });
     return bookings;
   }
 
   async postBooking(userId: number, tableId: number): Promise<number | void> {
-    const newDate = new Date()
+    const newDate = new Date();
     const isTableAvailable = await this.tableService.occupyTable(tableId);
     if (isTableAvailable === 404) return statusCode.NOT_FOUND;
     if (isTableAvailable === 400) return statusCode.BAD_REQUEST;
-    await this.bookingsModel.create({ userId, tableId, reservationTime: newDate });
+    await this.bookingsModel.create({
+      userId,
+      tableId,
+      reservationTime: newDate,
+    });
     return;
   }
 
@@ -49,20 +53,23 @@ class BookingService {
         {
           model: Users,
           as: 'user',
-          attributes: { exclude: ['id', 'password', 'email', 'role'] }
+          attributes: { exclude: ['id', 'password', 'email', 'role'] },
         },
         {
           model: Tables,
           as: 'table',
-          attributes: { exclude: ['available'] }
-        }
-      ]
+          attributes: { exclude: ['available'] },
+        },
+      ],
     });
     if (!booking) return statusCode.NOT_FOUND;
     return booking;
   }
 
-  async updateBooking(bookingId: number, infos: Ibookings): Promise<number | void> {
+  async updateBooking(
+    bookingId: number,
+    infos: Ibookings
+  ): Promise<number | void> {
     const bookingValidator = await this.getBookingById(bookingId);
     if (bookingValidator === 404) return statusCode.NOT_FOUND;
     await this.bookingsModel.update(infos, { where: { id: bookingId } });
@@ -72,7 +79,7 @@ class BookingService {
   async deleteBooking(bookingId: number): Promise<number | void> {
     const bookingValidator = await this.getBookingById(bookingId);
     if (bookingValidator === 404) return statusCode.NOT_FOUND;
-    await this.bookingsModel.destroy({ where: { id: bookingId } })
+    await this.bookingsModel.destroy({ where: { id: bookingId } });
     return;
   }
 }

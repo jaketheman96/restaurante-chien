@@ -1,7 +1,8 @@
-import { STRING } from "sequelize";
-import { INTEGER, Model } from "sequelize";
+import { STRING } from 'sequelize';
+import { INTEGER, Model } from 'sequelize';
 import db from '.';
-import Ifoods from "../../interfaces/Ifoods";
+import Ifoods from '../../interfaces/Ifoods';
+import Orders from './orders.model';
 
 class Foods extends Model<Ifoods> {
   declare id: number;
@@ -11,33 +12,36 @@ class Foods extends Model<Ifoods> {
   declare price: string;
 }
 
-Foods.init({
-  id: {
-    type: INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+Foods.init(
+  {
+    id: {
+      type: INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: STRING,
+      allowNull: false,
+    },
+    type: {
+      type: STRING,
+      allowNull: false,
+    },
+    description: {
+      type: STRING,
+      allowNull: false,
+    },
+    price: {
+      type: INTEGER,
+      allowNull: false,
+    },
   },
-  name: {
-    type: STRING,
-    allowNull: false
-  },
-  type: {
-    type: STRING,
-    allowNull: false,
-  },
-  description: {
-    type: STRING,
-    allowNull: false
-  },
-  price: {
-    type: INTEGER,
-    allowNull: false,
+  {
+    timestamps: false,
+    sequelize: db,
+    modelName: 'Foods',
+    underscored: true,
   }
-}, {
-  timestamps: false,
-  sequelize: db,
-  modelName: 'foods',
-  underscored: true,
-})
+);
 
 export default Foods;

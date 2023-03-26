@@ -5,6 +5,7 @@ import Iusers from "../../interfaces/Iusers";
 import tokenHelper from "../../utils/tokenHelper";
 import Ilogin from "../../interfaces/Ilogin";
 import UserValidator from "../../middlewares/validations/user.validator";
+import Orders from "../../database/models/orders.model";
 
 class UserService {
   private usersModel: typeof Users;
