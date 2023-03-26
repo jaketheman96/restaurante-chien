@@ -1,5 +1,5 @@
 interface IordersFoods {
-  orderId: number;
+  orderId?: number;
   foodId: number;
   quantity: number;
 }
