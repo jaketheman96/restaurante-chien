@@ -18,6 +18,7 @@ import Register from './pages/Register';
 import { RootState } from './store/store';
 import Checkout from './pages/Checkout';
 import Payment from './pages/Payment';
+import DeliveryAddress from './components/DeliveryAddress';
 
 function App() {
   const { isLoading } = useSelector(
@@ -42,7 +43,8 @@ function App() {
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/bookings/new' element={<NewBooking />} />
         <Route path='/checkout' element={<Checkout />} />
-        <Route path='/payment' element={ <Payment /> } />
+        <Route path='/checkout/address' element={<DeliveryAddress />} />
+        <Route path='/checkout/payment' element={<Payment />} />
       </Routes>
       {isLoading && <LoadingSpinner />}
     </div>

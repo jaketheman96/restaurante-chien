@@ -1,20 +1,30 @@
 import { MouseEvent, useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CartTableBody from '../components/CartTableBody';
 import PortalNavbar from '../components/PortalNavbar';
 import useCart from '../hooks/useCart';
 import Iorder from '../interfaces/Iorder';
+// import { handleCheckoutInfos } from '../slicers/checkout.slicer';
 import '../styles/CartTable.style.css';
 
 function Checkout() {
   const navigate = useNavigate();
+  // const dispatch = useDispatch()
   const { storeCart, totalPrice, removeFullItemFromCart } = useCart();
   const [orderNotes, setOrderNotes] = useState('');
+
+  console.log(orderNotes);
 
   const handleRemoveFullItem = (event: MouseEvent<Element>) => {
     const target = event.target as HTMLButtonElement;
     const itemPosition = Number(target.id);
     removeFullItemFromCart(itemPosition);
+  };
+
+  const handleSubmitCheckout = () => {
+    // dispatch(handleCheckoutInfos())
+    navigate('/checkout/address');
   };
 
   return (
@@ -58,7 +68,7 @@ function Checkout() {
       <button type='button' onClick={() => navigate('/orders/new')}>
         Voltar
       </button>
-      <button type='button' onClick={() => navigate('/payment')}>
+      <button type='button' onClick={handleSubmitCheckout}>
         Continuar
       </button>
       <p>{`Total: R$${totalPrice.toFixed(2).replace('.', ',')}`}</p>
