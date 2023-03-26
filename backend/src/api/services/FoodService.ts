@@ -1,9 +1,7 @@
-import Foods from '../../database/models/foods.model';
+import Foods from '../../database/models/FoodsModel';
 import Ifoods from '../../interfaces/Ifoods';
-import FoodValidator from '../../middlewares/validations/food.validator';
+import FoodValidator from '../../middlewares/validations/FoodValidator';
 import statusCode from '../../utils/statusCode';
-import { Op } from 'sequelize';
-import Orders from '../../database/models/orders.model';
 
 class FoodService {
   private foodModel: typeof Foods;

@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import ErrorHandler from './middlewares/error.handler';
-import tableRoute from './routes/tables';
-import userRoute from './routes/user';
-import bookingRoute from './routes/bookings';
-import foodRouter from './routes/foods';
+import ErrorHandler from './middlewares/ErrorHandler';
+import tableRoute from './routes/Tables';
+import userRoute from './routes/User';
+import bookingRoute from './routes/Bookings';
+import foodRouter from './routes/Foods';
 import 'express-async-errors';
-import orderRoute from './routes/orders';
+import orderRoute from './routes/Orders';
 
 class App {
   public app: express.Express;

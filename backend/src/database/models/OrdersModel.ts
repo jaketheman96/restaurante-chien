@@ -1,9 +1,9 @@
 import { INTEGER, Model, STRING, DATE, DECIMAL } from 'sequelize';
 import db from '.';
 import Iorders from '../../interfaces/Iorders';
-import Foods from './foods.model';
-import OrdersFoods from './ordersFoods.model';
-import Users from './user.model';
+import Foods from './FoodsModel';
+import OrdersFoods from './OrdersFoodsModel';
+import Users from './UserModel';
 
 class Orders extends Model<Iorders> {
   declare id: number;

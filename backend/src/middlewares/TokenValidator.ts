@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import Users from "../database/models/user.model";
+import Users from "../database/models/UserModel";
 import statusCode from '../utils/statusCode';
 
 const secret = process.env.JWT_SECRET || 'secretjwt'

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import statusCode from "../../utils/statusCode";
-import BookingService from "../services/booking.service";
+import BookingService from "../services/BookingService";
 
 class BookingController {
   private _req: Request;

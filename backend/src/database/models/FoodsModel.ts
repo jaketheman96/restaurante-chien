@@ -2,7 +2,6 @@ import { STRING } from 'sequelize';
 import { INTEGER, Model } from 'sequelize';
 import db from '.';
 import Ifoods from '../../interfaces/Ifoods';
-import Orders from './orders.model';
 
 class Foods extends Model<Ifoods> {
   declare id: number;

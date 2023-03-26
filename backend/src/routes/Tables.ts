@@ -1,5 +1,5 @@
-import TableController from "../api/controllers/table.controller";
-import TokenValidator from "../middlewares/tokenValidator";
+import TableController from "../api/controllers/TableController";
+import TokenValidator from "../middlewares/TokenValidator";
 
 import express from 'express';
 

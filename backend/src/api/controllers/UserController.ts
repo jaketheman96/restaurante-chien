@@ -1,4 +1,4 @@
-import UserService from '../services/user.service';
+import UserService from '../services/UserService';
 import statusCode from '../../utils/statusCode';
 import { NextFunction, Request, Response } from 'express';
 

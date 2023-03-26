@@ -1,5 +1,5 @@
 import Itable from "../../interfaces/Itables";
-import Tables from "../../database/models/table.model";
+import Tables from "../../database/models/TableModel";
 import statusCode from "../../utils/statusCode";
 
 class TableService {

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import statusCode from "../../utils/statusCode";
-import OrderService from "../services/order.service";
+import OrderService from "../services/OrderService";
 
 class OrderController {
   private _req: Request;

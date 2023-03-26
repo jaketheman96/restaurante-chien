@@ -6,7 +6,7 @@ module.exports = {
       {
         user_id: 1,
         delivery_address: 'Rua admin 32',
-        total_price: 50,
+        total_price: 100,
         status: 'Pendente',
         order_date: new Date(),
         order_notes: 'Teste'
@@ -14,7 +14,7 @@ module.exports = {
       {
         user_id: 1,
         delivery_address: 'Rua admin 90',
-        total_price: 60,
+        total_price: 54,
         status: 'Pendente',
         order_date: new Date(),
         order_notes: 'Teste 2'
@@ -22,7 +22,7 @@ module.exports = {
       {
         user_id: 1,
         delivery_address: 'Rua admin 50',
-        total_price: 50,
+        total_price: 60,
         status: 'Pendente',
         order_date: new Date(),
         order_notes: 'Teste 3'

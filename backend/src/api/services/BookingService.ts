@@ -1,9 +1,9 @@
-import Bookings from '../../database/models/bookings.model';
-import Tables from '../../database/models/table.model';
-import Users from '../../database/models/user.model';
+import Bookings from '../../database/models/BookingsModel';
+import Tables from '../../database/models/TableModel';
+import Users from '../../database/models/UserModel';
 import Ibookings from '../../interfaces/Ibookings';
 import statusCode from '../../utils/statusCode';
-import TableService from './table.service';
+import TableService from './TableService';
 
 class BookingService {
   private bookingsModel: typeof Bookings;

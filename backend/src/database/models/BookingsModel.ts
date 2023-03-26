@@ -1,8 +1,8 @@
 import { DATE, Model, INTEGER } from "sequelize";
 import db from '.';
 import Ibookings from "../../interfaces/Ibookings";
-import Users from './user.model';
-import Tables from './table.model'
+import Users from './UserModel';
+import Tables from './TableModel'
 
 class Bookings extends Model<Ibookings> {
   declare id: number;

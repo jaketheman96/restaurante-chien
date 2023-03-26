@@ -1,6 +1,6 @@
 import express from 'express';
-import BookingController from '../api/controllers/booking.controller';
-import TokenValidator from '../middlewares/tokenValidator';
+import BookingController from '../api/controllers/BookingController';
+import TokenValidator from '../middlewares/TokenValidator';
 
 const bookingRoute = express.Router();
 

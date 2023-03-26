@@ -1,7 +1,6 @@
-import Foods from '../../database/models/foods.model';
-import Orders from '../../database/models/orders.model';
-import OrdersFoods from '../../database/models/ordersFoods.model';
-import Users from '../../database/models/user.model';
+import Foods from '../../database/models/FoodsModel';
+import Orders from '../../database/models/OrdersModel';
+import Users from '../../database/models/UserModel';
 import Iorders from '../../interfaces/Iorders';
 import statusCode from '../../utils/statusCode';
 

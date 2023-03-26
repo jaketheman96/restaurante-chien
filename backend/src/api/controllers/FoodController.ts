@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import statusCode from "../../utils/statusCode";
-import FoodService from "../services/food.service";
+import FoodService from "../services/FoodService";
 
 class FoodController {
   private _req: Request;

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import TableService from "../services/table.service";
+import TableService from "../services/TableService";
 import statusCode from "../../utils/statusCode";
 
 class TableController {

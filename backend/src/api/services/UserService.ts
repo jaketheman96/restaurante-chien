@@ -1,11 +1,10 @@
-import Users from "../../database/models/user.model";
+import Users from "../../database/models/UserModel";
 import statusCode from "../../utils/statusCode";
 import passwordHelper from "../../utils/hashPassword";
 import Iusers from "../../interfaces/Iusers";
 import tokenHelper from "../../utils/tokenHelper";
 import Ilogin from "../../interfaces/Ilogin";
-import UserValidator from "../../middlewares/validations/user.validator";
-import Orders from "../../database/models/orders.model";
+import UserValidator from "../../middlewares/validations/UserValidator";
 
 class UserService {
   private usersModel: typeof Users;

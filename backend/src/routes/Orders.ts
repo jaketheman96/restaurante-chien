@@ -1,6 +1,6 @@
 import express from 'express';
-import OrderController from '../api/controllers/order.controller';
-import TokenValidator from '../middlewares/tokenValidator';
+import OrderController from '../api/controllers/OrderController';
+import TokenValidator from '../middlewares/TokenValidator';
 
 const orderRoute = express.Router();
 
