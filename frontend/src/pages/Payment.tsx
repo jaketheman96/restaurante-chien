@@ -38,7 +38,7 @@ function Payment() {
   useEffect(() => {
     const redirectUser = () => {
       if (isPaymentDone) {
-        setTimeout(() => navigate('/portal'), SIX_SECONDS);
+        setTimeout(() => navigate('/orders'), SIX_SECONDS);
       }
     };
     redirectUser();

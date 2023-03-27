@@ -29,6 +29,16 @@ function DeliveryAddress() {
           <option value='balcony'>Balcão</option>
         </select>
       </label>
+      {deliveryMethod === 'delivery' && (
+        <label htmlFor='address-input'>
+          Endereço para entrega:
+          <input
+            type='text'
+            name='address-input'
+            placeholder='Ex: Rua Curitiba 42'
+          />
+        </label>
+      )}
       <button type='button' onClick={() => navigate('/checkout')}>
         Voltar
       </button>
