@@ -16,8 +16,6 @@ class OrderService {
     this.orderFoods = OrdersFoods;
   }
 
-  // lembrar de realizar o create order com as informações corretas
-
   async getAllOrders(): Promise<Iorders[]> {
     const orders = await this.orderModel.findAll({
       include: [
@@ -69,13 +67,21 @@ class OrderService {
     return;
   }
 
-  async changeOrder(
+  async changeOrderStatus(
     orderId: number,
-    orderInfos: Iorders
+    orderStatus:
+      | 'Pendente'
+      | 'Preparando'
+      | 'Retirar no balcão'
+      | 'A caminho'
+      | 'Entregue'
   ): Promise<void | number> {
     const orderValidation = await this.getOrdersById(orderId);
     if (orderValidation === 404) return statusCode.NOT_FOUND;
-    await this.orderModel.update(orderInfos, { where: { id: orderId } });
+    await this.orderModel.update(
+      { status: orderStatus },
+      { where: { id: orderId } }
+    );
     return;
   }
 

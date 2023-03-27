@@ -25,7 +25,7 @@ orderRoute.post(
 orderRoute.put(
   '/:id',
   (req, res, next) => new TokenValidator(req, res, next).validator(),
-  (req, res, next) => new OrderController(req, res, next).changeOrder()
+  (req, res, next) => new OrderController(req, res, next).changeOrderStatus()
 );
 
 orderRoute.delete(

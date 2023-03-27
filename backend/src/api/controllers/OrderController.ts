@@ -38,15 +38,15 @@ class OrderController {
       .json({ message: 'Order created!' });
   }
 
-  async changeOrder(): Promise<Response> {
+  async changeOrderStatus(): Promise<Response> {
     const {
       params: { id },
       body,
     } = this._req;
-    const response = await this.orderService.changeOrder(Number(id), body);
+    const response = await this.orderService.changeOrderStatus(Number(id), body.status);
     if (response === 404)
       return this._res.status(statusCode.NOT_FOUND).json(this.orderNotFound);
-    return this._res.status(statusCode.OK).json({ message: 'Order updated!' });
+    return this._res.status(statusCode.OK).json({ message: 'Order status updated!' });
   }
 
   async deleteOrder(): Promise<Response> {
