@@ -1,9 +1,10 @@
 import IorderFoods from './IorderFoods';
 
 interface Icheckout {
-  userId: number;
-  deliveryAddress: string;
-  foods: IorderFoods[];
+  id?: number;
+  userId?: number;
+  deliveryAddress?: string;
+  foods?: IorderFoods[];
   status:
     | 'Pendente'
     | 'Preparando'
@@ -11,6 +12,8 @@ interface Icheckout {
     | 'Encaminhado'
     | 'Recebido';
   totalPrice: number;
+  orderId?: number;
+  orderDate?: Date;
   orderNotes?: string;
 }
 

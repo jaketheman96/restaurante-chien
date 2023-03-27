@@ -4,7 +4,7 @@ import { setIsLoading } from '../slicers/loading.slicer';
 
 const url = 'http://localhost:3502';
 
-export function useGetFetch<T>(route: string) {
+export function useGetFetch<T>(route: string, token: string) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -13,7 +13,14 @@ export function useGetFetch<T>(route: string) {
     const fetching = async (): Promise<void> => {
       try {
         dispatch(setIsLoading(true));
-        const response = await fetch(`${url}${route}`);
+        const response = await fetch(`${url}${route}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*',
+            Authorization: token,
+          },
+        });
         const result = await response.json();
         setData(result);
       } catch (err) {
@@ -23,7 +30,7 @@ export function useGetFetch<T>(route: string) {
       }
     };
     fetching();
-  }, [route, dispatch]);
+  }, [route, dispatch, token]);
 
   return { data, error };
 }

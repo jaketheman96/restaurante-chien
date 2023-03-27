@@ -7,7 +7,7 @@ import Ifoods from '../interfaces/Ifoods';
 import Iorder from '../interfaces/Iorder';
 
 function NewOrder() {
-  const { data, error } = useGetFetch<Ifoods[]>('/foods');
+  const { data, error } = useGetFetch<Ifoods[]>('/foods', '');
   const { addToLocalCart, totalPrice, removeFromLocalCart } = useCart();
 
   const handleAddButton = (payload: Iorder) => {
