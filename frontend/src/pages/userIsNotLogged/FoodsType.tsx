@@ -1,5 +1,5 @@
-import Types from "../components/Types"
-import MainNavbar from "../components/MainNavbar"
+import Types from "../../components/Types"
+import MainNavbar from "../../components/MainNavbar"
 
 function FoodsType() {
   return (

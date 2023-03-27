@@ -1,14 +1,14 @@
 import { MouseEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import CartTableBody from '../components/CartTableBody';
-import PortalNavbar from '../components/PortalNavbar';
-import useCart from '../hooks/useCart';
-import Icheckout from '../interfaces/Icheckout';
-import Iorder from '../interfaces/Iorder';
-import { handleCheckoutInfos } from '../slicers/checkout.slicer';
-import { RootState } from '../store/store';
-import '../styles/CartTable.style.css';
+import CartTableBody from '../../components/CartTableBody';
+import PortalNavbar from '../../components/PortalNavbar';
+import useCart from '../../hooks/useCart';
+import Icheckout from '../../interfaces/Icheckout';
+import Iorder from '../../interfaces/Iorder';
+import { handleCheckoutInfos } from '../../slicers/checkout.slicer';
+import { RootState } from '../../store/store';
+import '../../styles/CartTable.style.css';
 
 function Checkout() {
   const navigate = useNavigate();

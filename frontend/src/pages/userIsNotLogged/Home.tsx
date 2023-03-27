@@ -1,5 +1,5 @@
-import MainHome from '../components/MainHome';
-import MainNavbar from '../components/MainNavbar';
+import MainHome from '../../components/MainHome';
+import MainNavbar from '../../components/MainNavbar';
 
 function Home() {
   return (

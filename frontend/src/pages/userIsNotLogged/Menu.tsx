@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import FoodsMenu from "../components/FoodsMenu";
-import MainNavbar from "../components/MainNavbar";
+import FoodsMenu from "../../components/FoodsMenu";
+import MainNavbar from "../../components/MainNavbar";
 
 function Menu() {
   const navigate = useNavigate()

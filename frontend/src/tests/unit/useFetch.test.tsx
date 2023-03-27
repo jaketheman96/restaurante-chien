@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import Menu from "../../pages/Menu";
+import Menu from "../../pages/userIsNotLogged/Menu";
 import store from "../../store/store";
 import { allFoodsMock } from "../mocks/allFoods";
 

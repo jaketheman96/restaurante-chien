@@ -1,4 +1,4 @@
-import useUserValidator from '../hooks/useUserValidator';
+import useUserValidator from '../../hooks/useUserValidator';
 
 function Bookings() {
   useUserValidator();

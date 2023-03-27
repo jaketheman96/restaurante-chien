@@ -1,12 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import PortalNavbar from '../components/PortalNavbar';
-import useCart from '../hooks/useCart';
-import { setIsLoading } from '../slicers/loading.slicer';
-import { selectPaymentMethod } from '../slicers/payment.slicer';
-import { RootState } from '../store/store';
-import postFetch from '../utils/postFetch';
+import PortalNavbar from '../../components/PortalNavbar';
+import useCart from '../../hooks/useCart';
+import { setIsLoading } from '../../slicers/loading.slicer';
+import { selectPaymentMethod } from '../../slicers/payment.slicer';
+import { RootState } from '../../store/store';
+import postFetch from '../../utils/postFetch';
 
 function Payment() {
   const dispatch = useDispatch();

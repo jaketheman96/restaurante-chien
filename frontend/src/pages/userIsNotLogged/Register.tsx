@@ -1,5 +1,5 @@
-import MainNavbar from "../components/MainNavbar"
-import RegisterForm from "../components/RegisterForm"
+import MainNavbar from "../../components/MainNavbar"
+import RegisterForm from "../../components/RegisterForm"
 
 function Register() {
   return (

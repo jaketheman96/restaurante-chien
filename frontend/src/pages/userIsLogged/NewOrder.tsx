@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import NewOrderCards from '../components/NewOrderCards';
-import PortalNavbar from '../components/PortalNavbar';
-import useCart from '../hooks/useCart';
-import { useGetFetch } from '../hooks/useGetFetch';
-import Ifoods from '../interfaces/Ifoods';
-import Iorder from '../interfaces/Iorder';
+import NewOrderCards from '../../components/NewOrderCards';
+import PortalNavbar from '../../components/PortalNavbar';
+import useCart from '../../hooks/useCart';
+import { useGetFetch } from '../../hooks/useGetFetch';
+import Ifoods from '../../interfaces/Ifoods';
+import Iorder from '../../interfaces/Iorder';
 
 function NewOrder() {
   const { data, error } = useGetFetch<Ifoods[]>('/foods', '');

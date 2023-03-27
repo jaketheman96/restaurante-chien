@@ -1,11 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import About from "../../pages/About";
-import Contact from "../../pages/Contact";
-import Login from "../../pages/Login";
-import Menu from "../../pages/Menu";
-import Register from "../../pages/Register";
+import About from "../../pages/userIsNotLogged/About";
+import Contact from "../../pages/userIsNotLogged/Contact";
+import Login from "../../pages/userIsNotLogged/Login";
+import Menu from "../../pages/userIsNotLogged/Menu";
+import Register from "../../pages/userIsNotLogged/Register";
 import store from "../../store/store";
 
 describe("Testing navbar component", () => {
