@@ -19,6 +19,7 @@ import { RootState } from './store/store';
 import Checkout from './pages/userIsLogged/Checkout';
 import Payment from './pages/userIsLogged/Payment';
 import DeliveryAddress from './components/DeliveryAddress';
+import OrderDetails from './pages/userIsLogged/OrderDetails';
 
 function App() {
   const { isLoading } = useSelector(
@@ -40,6 +41,7 @@ function App() {
         <Route path='/portal' element={<Portal />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/orders/new' element={<NewOrder />} />
+        <Route path='/orders/:id' element={<OrderDetails />} />
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/bookings/new' element={<NewBooking />} />
         <Route path='/checkout' element={<Checkout />} />

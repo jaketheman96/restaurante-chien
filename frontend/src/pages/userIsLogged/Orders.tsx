@@ -18,7 +18,7 @@ function Orders() {
         data.map((order: Icheckout, index: number) => (
           <UserOrdersCard
             key={index}
-            id={index + 1}
+            id={order.id}
             status={order.status}
             orderId={order.id}
             orderDate={order.orderDate}

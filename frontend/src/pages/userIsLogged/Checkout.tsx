@@ -47,7 +47,7 @@ function Checkout() {
       <table className='cart-table'>
         <thead>
           <tr>
-            <th>Pedido</th>
+            <th>N°</th>
             <th>Nome</th>
             <th>Preço</th>
             <th>Qtd.</th>

@@ -18,10 +18,10 @@ function UserOrdersCard({
     <div>
       <Link to={`/orders/${orderId}`}>
         <div>
-          <p>{`Pedido: ${String(id).padStart(3, '0')}`}</p>
+          <p>{`Pedido: ${String(id).padStart(4, '0')}`}</p>
         </div>
         <div>
-          <p>°</p>
+          <p>°status</p>
           <p>{status}</p>
           <p>{fullDate}</p>
         </div>
