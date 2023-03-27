@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userInfos } from '../slicers/user.slicer';
 
-function useUserValidator() {
+function useUserValidator<Iusers>() {
   const [isUserLogged, setIsUserLogged] = useState<boolean>(false);
+  const [userData, setUserData] = useState<Iusers>();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,13 +16,15 @@ function useUserValidator() {
         setIsUserLogged(false);
         return navigate('/login');
       }
-      dispatch(userInfos(JSON.parse(user)));
+      const parsedUser = JSON.parse(user);
+      dispatch(userInfos(parsedUser));
+      setUserData(parsedUser);
       return setIsUserLogged(true);
     };
     userValidator();
   }, [navigate, dispatch]);
 
-  return { isUserLogged };
+  return { isUserLogged, userData };
 }
 
 export default useUserValidator;

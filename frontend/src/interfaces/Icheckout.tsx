@@ -9,7 +9,7 @@ interface Icheckout {
     | 'Pendente'
     | 'Preparando'
     | 'Retirar no balcão'
-    | 'Encaminhado'
+    | 'A caminho'
     | 'Recebido';
   totalPrice: number;
   orderId?: number;

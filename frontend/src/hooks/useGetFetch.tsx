@@ -31,6 +31,6 @@ export function useGetFetch<T>(route: string, token: string) {
     };
     fetching();
   }, [route, dispatch, token]);
-
-  return { data, error };
+  
+  return { data, error, setData };
 }

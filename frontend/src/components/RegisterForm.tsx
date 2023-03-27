@@ -5,7 +5,7 @@ import useTimeout from '../hooks/useTimeout';
 import Iusers from '../interfaces/Iuser';
 import { setIsLoading } from '../slicers/loading.slicer';
 import { userInfos } from '../slicers/user.slicer';
-import fetchWhenClicked from '../utils/postFetch';
+import fetchWhenClicked from '../utils/allFetchMethods';
 
 function RegisterForm() {
   const [userName, setUserName] = useState<string>('');

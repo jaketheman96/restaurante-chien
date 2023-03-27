@@ -6,7 +6,7 @@ import useCart from '../../hooks/useCart';
 import { setIsLoading } from '../../slicers/loading.slicer';
 import { selectPaymentMethod } from '../../slicers/payment.slicer';
 import { RootState } from '../../store/store';
-import postFetch from '../../utils/postFetch';
+import postFetch from '../../utils/allFetchMethods';
 
 function Payment() {
   const dispatch = useDispatch();
