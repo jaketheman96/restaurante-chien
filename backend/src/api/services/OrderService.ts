@@ -85,6 +85,20 @@ class OrderService {
     await this.orderModel.destroy({ where: { id: orderId } });
     return;
   }
+
+  async getOrdersByUserId(userId: number) {
+    const order = await this.orderModel.findAll({
+      where: { userId },
+      include: [
+        {
+          model: Foods,
+          as: 'foods',
+          through: { attributes: ['quantity'] },
+        },
+      ],
+    });
+    return order;
+  }
 }
 
 export default OrderService;

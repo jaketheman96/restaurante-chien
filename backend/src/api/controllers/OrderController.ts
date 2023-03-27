@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import statusCode from "../../utils/statusCode";
-import OrderService from "../services/OrderService";
+import { NextFunction, Request, Response } from 'express';
+import statusCode from '../../utils/statusCode';
+import OrderService from '../services/OrderService';
 
 class OrderController {
   private _req: Request;
@@ -24,33 +24,44 @@ class OrderController {
 
   async getOrderById(): Promise<Response> {
     const { id } = this._req.params;
-    const response = await this.orderService.getOrdersById(Number(id))
-    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json(this.orderNotFound);
-    return this._res.status(statusCode.OK).json(response)
+    const response = await this.orderService.getOrdersById(Number(id));
+    if (response === 404)
+      return this._res.status(statusCode.NOT_FOUND).json(this.orderNotFound);
+    return this._res.status(statusCode.OK).json(response);
   }
 
   async postOrder(): Promise<Response> {
     const { body } = this._req;
     await this.orderService.postOrder(body);
-    return this._res.status(statusCode.CREATED).json({ message: 'Order created!' })
+    return this._res
+      .status(statusCode.CREATED)
+      .json({ message: 'Order created!' });
   }
 
   async changeOrder(): Promise<Response> {
-    const { params: { id }, body } = this._req
+    const {
+      params: { id },
+      body,
+    } = this._req;
     const response = await this.orderService.changeOrder(Number(id), body);
-    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json(this.orderNotFound);
+    if (response === 404)
+      return this._res.status(statusCode.NOT_FOUND).json(this.orderNotFound);
     return this._res.status(statusCode.OK).json({ message: 'Order updated!' });
   }
 
   async deleteOrder(): Promise<Response> {
-    const { id } = this._req.params
+    const { id } = this._req.params;
     const response = await this.orderService.deleteOrder(Number(id));
-    if (response === 404) return this._res.status(statusCode.NOT_FOUND)
-      .json(this.orderNotFound);
+    if (response === 404)
+      return this._res.status(statusCode.NOT_FOUND).json(this.orderNotFound);
     return this._res.status(statusCode.OK).json({ message: 'Order deleted!' });
+  }
+
+  async getOrdersByUserId(): Promise<Response> {
+    const { id } = this._req.params;
+    const response = await this.orderService.getOrdersByUserId(Number(id));
+    return this._res.status(statusCode.OK).json(response);
   }
 }
 
-export default OrderController
+export default OrderController;
