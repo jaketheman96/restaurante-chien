@@ -1,14 +1,17 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PortalNavbar from '../components/PortalNavbar';
 import useCart from '../hooks/useCart';
 import { setIsLoading } from '../slicers/loading.slicer';
 import { selectPaymentMethod } from '../slicers/payment.slicer';
+import { RootState } from '../store/store';
+import postFetch from '../utils/postFetch';
 
 function Payment() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user, checkout } = useSelector((state: RootState) => state);
   const { totalPrice } = useCart();
   const [paymentMethod, setPaymentMethod] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -16,10 +19,12 @@ function Payment() {
   const TWO_SECONDS = 2000;
   const SIX_SECONDS = 6000;
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (paymentMethod !== '') {
       dispatch(setIsLoading(true));
       dispatch(selectPaymentMethod({ paymentMethod }));
+      localStorage.removeItem('cart');
+      await postFetch('POST', '/orders', checkout, user.token);
       setTimeout(() => {
         dispatch(setIsLoading(false));
         setShowSuccessMessage(true);
