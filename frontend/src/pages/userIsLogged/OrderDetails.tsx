@@ -12,7 +12,7 @@ import allFetchMethods from '../../utils/allFetchMethods';
 function OrderDetails() {
   useUserValidator<Iusers>();
   const { id } = useParams();
-  const { token } = useSelector((state: RootState) => state.user);
+  const { token, role } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [data, setData] = useState<Icheckout>();
@@ -78,14 +78,23 @@ function OrderDetails() {
             quantity={food.ordersFoods.quantity}
           />
         ))}
-      <p>{data?.deliveryAddress}</p>
-      <button
-        type='button'
-        onClick={handleStatusFetch}
-        disabled={isButtonDisabled}
-      >
-        Marcar como entregue
-      </button>
+      {role === 'employee' && (
+        <>
+          <p>{data?.deliveryAddress}</p>
+          <button>Preparando</button>
+          <button>Retirar no balcão</button>
+          <button>A caminho</button>
+        </>
+      )}
+      {role === 'customer' && (
+        <button
+          type='button'
+          onClick={handleStatusFetch}
+          disabled={isButtonDisabled}
+        >
+          Marcar como entregue
+        </button>
+      )}
       <button type='button' onClick={() => navigate('/orders')}>
         Voltar
       </button>
