@@ -10,24 +10,33 @@ import getFetch from '../../utils/allFetchMethods';
 
 function Orders() {
   useUserValidator<Iusers>();
-  const { id, token } = useSelector((state: RootState) => state.user);
+  const { id, token, role } = useSelector((state: RootState) => state.user);
   const [data, setData] = useState<Icheckout[]>();
 
+  
   useEffect(() => {
-    const getOrderById = async () => {
+    const switchEndpointByRole = () => {
       if (id !== 0) {
-        const response = await getFetch(
-          'GET',
-          `/orders/customer/${id}`,
-          null,
-          token
-        );
+        switch (role) {
+          case 'customer':
+            return `/orders/customer/${id}`;
+          case 'employee':
+            return '/orders';
+          default:
+            return 'admin';
+        }
+      }
+    };
+    const getOrderById = async () => {
+      const endpoint = switchEndpointByRole();
+      if (id !== 0) {
+        const response = await getFetch('GET', endpoint as string, null, token);
         setData(response);
       }
       return;
     };
     getOrderById();
-  }, [id, token]);
+  }, [id, token, role]);
 
   return (
     <div>

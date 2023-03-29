@@ -78,6 +78,7 @@ function OrderDetails() {
             quantity={food.ordersFoods.quantity}
           />
         ))}
+      <p>{data?.deliveryAddress}</p>
       <button
         type='button'
         onClick={handleStatusFetch}
