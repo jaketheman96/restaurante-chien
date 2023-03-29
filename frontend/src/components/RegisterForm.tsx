@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useRoleValidator from '../hooks/useRoleValidator';
 import useTimeout from '../hooks/useTimeout';
 import Iusers from '../interfaces/Iuser';
 import { setIsLoading } from '../slicers/loading.slicer';
@@ -8,6 +9,7 @@ import { userInfos } from '../slicers/user.slicer';
 import fetchWhenClicked from '../utils/allFetchMethods';
 
 function RegisterForm() {
+  const { roleValidator } = useRoleValidator();
   const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
@@ -61,10 +63,12 @@ function RegisterForm() {
         payload,
         ''
       );
-      if (registerUser.message)
+      if (registerUser.message) {
         return setShowRegisterError('Esse email já existe');
+      }
       localStorage.setItem('user', JSON.stringify(registerUser));
       dispatch(userInfos(registerUser));
+      roleValidator(registerUser.role);
     } catch (error: any) {
       return setShowRegisterError(error.message);
     } finally {
@@ -73,7 +77,7 @@ function RegisterForm() {
     return navigate('/portal');
   };
 
-  const TWO_SECONDS = 2000
+  const TWO_SECONDS = 2000;
 
   useTimeout(() => setShowRegisterError(''), TWO_SECONDS, '');
 

@@ -5,7 +5,9 @@ import { RootState } from '../store/store';
 
 function PortalNavbar() {
   const navigate = useNavigate();
-  const { email } = useSelector((state: RootState): Ilogged => state.user);
+  const { email, role } = useSelector(
+    (state: RootState): Ilogged => state.user
+  );
 
   const handleClick = () => {
     localStorage.removeItem('user');
@@ -16,9 +18,17 @@ function PortalNavbar() {
   return (
     <div>
       <img src='*' alt='chien logo' />
-      <Link to='/portal'>Início</Link>
-      <Link to='/bookings'>Minhas Reservas</Link>
-      <Link to='/orders'>Meus Pedidos</Link>
+      <Link to='/portal'>
+        <p>{role === 'customer' && 'Início'}</p>
+      </Link>
+      <Link to='/bookings'>
+        <p>{role === 'customer' && 'Minhas Reservas'}</p>
+        <p>{role === 'employee' && 'Reservas'}</p>
+      </Link>
+      <Link to='/orders'>
+        <p>{role === 'customer' && 'Meus Pedidos'}</p>
+        <p>{role === 'employee' && 'Pedidos'}</p>
+      </Link>
       <p>{email}</p>
       <button type='button' onClick={handleClick}>
         Sair

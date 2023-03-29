@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useRoleValidator from '../hooks/useRoleValidator';
 import useTimeout from '../hooks/useTimeout';
 import Iusers from '../interfaces/Iuser';
 import { setIsLoading } from '../slicers/loading.slicer';
@@ -10,6 +11,7 @@ import fetchWhenClicked from '../utils/allFetchMethods';
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { roleValidator } = useRoleValidator();
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
@@ -54,19 +56,19 @@ function LoginForm() {
       if (loginUser.message) return setLoginError('Login inválido');
       localStorage.setItem('user', JSON.stringify(loginUser));
       dispatch(userInfos(loginUser));
+      roleValidator(loginUser.role);
     } catch (error: any) {
       return setLoginError(error.message);
     } finally {
       dispatch(setIsLoading(false));
     }
-    return navigate('/portal');
   };
 
   const handleRegisterButton = (): void => {
     navigate('/register');
   };
 
-  const TWO_SECONDS = 2000
+  const TWO_SECONDS = 2000;
 
   useTimeout(() => setLoginError(''), TWO_SECONDS, '');
 
