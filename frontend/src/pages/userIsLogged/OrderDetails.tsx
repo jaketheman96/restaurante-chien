@@ -14,7 +14,11 @@ function OrderDetails() {
   const { id } = useParams();
   const { token } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [data, setData] = useState<Icheckout>();
+  const [orderStatus, setOrderStatus] = useState<
+    'Pendente' | 'Preparando' | 'Retirar no balcão' | 'A caminho' | 'Recebido'
+  >('Pendente');
   const [showError, setShowError] = useState('');
 
   const handleStatusFetch = async () => {
@@ -22,7 +26,15 @@ function OrderDetails() {
       status: 'Recebido',
     };
     await allFetchMethods('PUT', `/orders/${id}`, payload, token);
+    setOrderStatus('Recebido');
   };
+
+  useEffect(() => {
+    const getStatusFromOrder = () => {
+      if (data) return setOrderStatus(data.status);
+    };
+    getStatusFromOrder();
+  }, [data]);
 
   useEffect(() => {
     const getOrderById = async () => {
@@ -41,11 +53,21 @@ function OrderDetails() {
     getOrderById();
   }, [id, token]);
 
+  useEffect(() => {
+    const buttonValidator = () => {
+      if (data && data.status === 'A caminho') {
+        return setIsButtonDisabled(false);
+      }
+      return setIsButtonDisabled(true);
+    };
+    buttonValidator();
+  }, [data, setIsButtonDisabled]);
+
   return (
     <div>
       <PortalNavbar />
       Detalhes do Pedido:
-      <p>{data?.status}</p>
+      <p>{orderStatus}</p>
       <p>{`Pedido: ${data && String(data.id).padStart(4, '0')}`}</p>
       {data?.foods &&
         data?.foods.map((food: any) => (
@@ -56,7 +78,11 @@ function OrderDetails() {
             quantity={food.ordersFoods.quantity}
           />
         ))}
-      <button type='button' onClick={handleStatusFetch}>
+      <button
+        type='button'
+        onClick={handleStatusFetch}
+        disabled={isButtonDisabled}
+      >
         Marcar como entregue
       </button>
       <button type='button' onClick={() => navigate('/orders')}>
